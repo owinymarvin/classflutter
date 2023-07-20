@@ -41,6 +41,7 @@ class SignupScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   // TODO: Implement signup functionality
+                  _showWelcomeSnackbar(context); // Call this method after successful signup
                 },
                 child: Text('Signup'),
               ),
@@ -54,6 +55,15 @@ class SignupScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void _showWelcomeSnackbar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Welcome! You have successfully signed up.'),
+        duration: Duration(seconds: 3),
       ),
     );
   }
