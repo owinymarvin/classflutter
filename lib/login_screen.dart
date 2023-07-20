@@ -79,15 +79,15 @@ class _LoginScreenState extends State<LoginScreen> {
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: NetworkImage(
-            'https://images.unsplash.com/photo-1502219422320-9ca47798b75b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c3BvcnRzJTIwcmVkJTIwY2FyfGVufDB8MXwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
+            'https://images.unsplash.com/photo-1605362001336-f91645086f32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHJlZHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
           ),
+          scale: 0.8,
         ),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
-            Container(),
             Container(
               padding: const EdgeInsets.only(left: 35, top: 130),
               child: const Text(
@@ -102,9 +102,8 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Container(
                 margin: const EdgeInsets.only(left: 25, right: 25),
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.5),
+                    top: MediaQuery.of(context).size.height * 0.4),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextField(
@@ -149,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     ElevatedButton(
                       onPressed: signUserIn,
-                      child: const Text('Login'),
+                      child: const Text('Sign In'),
                     ),
                     const SizedBox(height: 10),
                     TextButton(
@@ -163,6 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: const Text('Create an account'),
                     ),
+                    
                   ],
                 ),
               ),
