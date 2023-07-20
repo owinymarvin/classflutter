@@ -75,60 +75,99 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.build,
-                size: 100,
-                color: Colors.blue,
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                controller: emailcontroller,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                ),
-              ),
-              SizedBox(height: 10),
-              TextFormField(
-                controller: passwordcontroller,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                ),
-              ),
-              SizedBox(height: 10),
-              TextButton(
-                onPressed: () {
-                  // TODO: Implement forgot password functionality
-                },
-                child: Text('Forgot password?'),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: signUserIn,
-                child: Text('Login'),
-              ),
-              SizedBox(height: 10),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignupScreen()),
-                  );
-                },
-                child: Text('Create an account'),
-              ),
-            ],
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(
+            'https://images.unsplash.com/photo-1502219422320-9ca47798b75b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c3BvcnRzJTIwcmVkJTIwY2FyfGVufDB8MXwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
           ),
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: [
+            Container(),
+            Container(
+              padding: const EdgeInsets.only(left: 35, top: 130),
+              child: const Text(
+                'My Mechanic App',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 50,
+                ),
+              ),
+            ),
+            SingleChildScrollView(
+              child: Container(
+                margin: const EdgeInsets.only(left: 25, right: 25),
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.5),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextField(
+                      style: const TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey.shade200,
+                        filled: true,
+                        hintText: "Email",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      controller: emailcontroller,
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    TextField(
+                      style: const TextStyle(color: Colors.black),
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey.shade200,
+                        filled: true,
+                        hintText: "Password",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      controller: passwordcontroller,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        // TODO: Implement forgot password functionality
+                      },
+                      child: const Text(
+                        'Forgot password?',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                      onPressed: signUserIn,
+                      child: const Text('Login'),
+                    ),
+                    const SizedBox(height: 10),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignupScreen(),
+                          ),
+                        );
+                      },
+                      child: const Text('Create an account'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
