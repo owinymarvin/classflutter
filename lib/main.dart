@@ -18,7 +18,7 @@ class MechanicApp extends StatelessWidget {
     return MaterialApp(
       title: 'Mechanic App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
       home: MainPage(),
     );

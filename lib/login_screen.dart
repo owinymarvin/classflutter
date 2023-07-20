@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -79,9 +79,8 @@ class _LoginScreenState extends State<LoginScreen> {
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: NetworkImage(
-            'https://images.unsplash.com/photo-1605362001336-f91645086f32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHJlZHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
+            'https://images.unsplash.com/photo-1621252792374-2b79e3fcf295?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDJ8fGNhcnxlbnwwfDF8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
           ),
-          scale: 0.8,
         ),
       ),
       child: Scaffold(
@@ -162,7 +161,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: const Text('Create an account'),
                     ),
-                    
                   ],
                 ),
               ),
