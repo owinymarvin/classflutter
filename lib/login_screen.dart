@@ -173,3 +173,13 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+ void _showWelcomeSnackbar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Welcome! You have successfully logged in.'),
+        duration: Duration(seconds: 3),
+      ),
+    );
+  }
+
+
