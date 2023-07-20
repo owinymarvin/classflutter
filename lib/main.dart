@@ -1,35 +1,26 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firstpro/firebase_options.dart';
 import 'package:flutter/material.dart';
+import 'main_Page.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: Scaffold(
-      appBar: AppBar(
-        title: const Text('My Mechanic App'),
-        centerTitle: true,
-        backgroundColor: Colors.red[600],
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MechanicApp());
+}
+
+class MechanicApp extends StatelessWidget {
+  MechanicApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Mechanic App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
-      body: const Center(
-        child: Text('This is my mechanic App',
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 2.0,
-              color: Colors.grey,
-              fontFamily: 'IndieFlower',
-            )),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print('Button Clicked');
-        },
-        backgroundColor: Colors.red[600],
-        child: const Text(
-          'Click',
-          style: TextStyle(
-            fontFamily: 'IndieFlower',
-          ),
-        ),
-      ),
-    ),
-  ));
+      home: MainPage(),
+    );
+  }
 }
