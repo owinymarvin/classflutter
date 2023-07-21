@@ -13,6 +13,11 @@ class SignupScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text( // Fix 1: Changed "text=" to "Text("
+                "ENTER YOUR DETAILS HERE",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 20),
               Icon(
                 Icons.build,
                 size: 100,
@@ -41,7 +46,7 @@ class SignupScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   // TODO: Implement signup functionality
-                  _showWelcomeSnackbar(context); // Call this method after successful signup
+                  _showWelcomeSnackbar(context);
                 },
                 child: Text('Signup'),
               ),
@@ -68,3 +73,4 @@ class SignupScreen extends StatelessWidget {
     );
   }
 }
+
