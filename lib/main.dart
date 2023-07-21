@@ -8,11 +8,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MechanicApp());
+  runApp(MechanicApp());
 }
 
 class MechanicApp extends StatelessWidget {
-  const MechanicApp({super.key});
+  MechanicApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
