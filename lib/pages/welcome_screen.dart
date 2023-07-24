@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
-import 'login_screen.dart';
+import 'package:firstpro/pages/login_screen.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
+  final Function()? ontap;
+  const WelcomeScreen({super.key, required this.ontap});
+  @override
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,11 +22,11 @@ class WelcomeScreen extends StatelessWidget {
             Icon(
               Icons.build,
               size: 100,
-              color: Colors.blue,
+              color: Colors.black,
             ),
             SizedBox(height: 20),
             Text(
-              'Welcome to Mechanic App!',
+              'Welcome to Vehicle Tow App!',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -30,10 +37,14 @@ class WelcomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => LoginScreen(
+                      onTap: () {},
+                    ),
+                  ),
                 );
               },
-              child: Text('Login'),
+              child: Text('Get started'),
             ),
           ],
         ),
