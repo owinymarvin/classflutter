@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firstpro/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'home_page.dart';
+import 'login_or_register_page.dart';
 
-class MainPage extends StatelessWidget {
+class MainAuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,8 +12,10 @@ class MainPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return HomePage();
+
+            //user not logged in
           } else {
-            return LoginScreen();
+            return loginOrRegisterPage();
           }
         },
       ),
