@@ -30,6 +30,10 @@ class _MyAppState extends State<MyApp> {
         'Index 2: School',
         style: optionStyle,
       ),
+      Text(
+        'Index 3: contact',
+        style: optionStyle,
+      ),
     ];
 
     void _onItemTapped(int index) {
@@ -118,13 +122,25 @@ class _MyAppState extends State<MyApp> {
                   // Then close the drawer
                   Navigator.pop(context);
                 },
+
               ),
+              
               ListTile(
                 title: const Text('School'),
                 selected: _selectedIndex == 2,
                 onTap: () {
                   // Update the state of the app
                   _onItemTapped(2);
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: const Text('contact'),
+                selected: _selectedIndex == 3,
+                onTap: () {
+                  // Update the state of the app
+                  _onItemTapped(3);
                   // Then close the drawer
                   Navigator.pop(context);
                 },
