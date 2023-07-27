@@ -35,41 +35,28 @@ class _LoginScreenState extends State<LoginScreen> {
         email: emailcontroller.text,
         password: passwordcontroller.text,
       ); //handling sign in error
+
+      Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
-      // wrong email
-      if (e.code == 'user-not-found') {
-        wrongEmailMessage();
-      }
+      Navigator.pop(context);
 
-      //wrong password
-      else if (e.code == "wrong password") {
-        wrongPasswordMessage();
-      }
+      //error message wrong email or password function
+      wrongErrorMessage(e.code);
     }
-
-    //popoff(remove) the loading circle
-    Navigator.pop(context);
   }
 
-  //wrong email popup message
-  void wrongEmailMessage() {
+  //wrong email or password popup message to be displayed
+  void wrongErrorMessage(String message) {
     showDialog(
       context: context,
       builder: (context) {
-        return const AlertDialog(
-          title: Text('incorrect email'),
-        );
-      },
-    );
-  }
-
-  //wrong password popup message
-  void wrongPasswordMessage() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const AlertDialog(
-          title: Text('incorrect password'),
+        return AlertDialog(
+          backgroundColor: Colors.grey,
+          title: Center(
+            child: Text(
+              message,
+            ),
+          ),
         );
       },
     );
