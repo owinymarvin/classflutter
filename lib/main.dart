@@ -9,5 +9,25 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const WelcomeStartScreen());
+  runApp(
+    const MainUserInterface(newScreenToRender: WelcomeStartScreen()),
+  );
+}
+
+class MainUserInterface extends StatelessWidget {
+  const MainUserInterface({super.key, required this.newScreenToRender});
+
+  final Widget newScreenToRender;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Medical Emergency App',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
+      home: newScreenToRender,
+    );
+  }
 }
