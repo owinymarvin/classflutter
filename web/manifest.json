@@ -1,6 +1,6 @@
 {
-    "name": "firstpro",
-    "short_name": "firstpro",
+    "name": "cartowingservice",
+    "short_name": "cartowingservice",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

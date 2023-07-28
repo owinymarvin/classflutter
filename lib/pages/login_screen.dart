@@ -1,19 +1,29 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firstpro/text_fields/my_button.dart';
-import 'package:firstpro/text_fields/square_frame.dart';
-import 'package:firstpro/text_fields/my_textfield.dart';
+import 'package:cartowingservice/classes/my_button.dart';
+import 'package:cartowingservice/classes/text_fields/square_frame.dart';
+import 'package:cartowingservice/classes/text_fields/my_textfield.dart';
+import 'package:cartowingservice/pages/home_screen.dart';
+import 'package:cartowingservice/classes/check_user_authentication.dart';
+
 // import 'signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  final Function()? onTap;
   LoginScreen({super.key, required this.onTap});
+
+  final Function()? onTap;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    super.initState();
+    CheckUserAuth.checkLoginStatus(context);
+  }
+
   //text editing controllers
   final emailcontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
@@ -29,19 +39,24 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       },
     );
-//signing in
+
+    //signing in
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailcontroller.text,
         password: passwordcontroller.text,
-      ); //handling sign in error
-
-      // ignore: use_build_context_synchronously
+      );
       Navigator.pop(context);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(),
+        ),
+      );
+      //
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
-
-      //error message wrong email or password function
       wrongErrorMessage(e.code);
     }
   }

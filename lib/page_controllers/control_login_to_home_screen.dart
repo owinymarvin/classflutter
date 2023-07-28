@@ -1,9 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'home_page.dart';
-import 'login_or_register_page.dart';
-import 'package:firstpro/pages/user_interface_after_login.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cartowingservice/page_controllers/control_toggle_login_&_singup_screens.dart';
+import 'package:cartowingservice/pages/home_screen.dart';
 
 class MainAuthPage extends StatelessWidget {
   @override
@@ -13,11 +11,11 @@ class MainAuthPage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return MyApp();
+            return HomeScreen();
 
             //user not logged in
           } else {
-            return loginOrRegisterPage();
+            return LoginRegisterScreen();
           }
         },
       ),

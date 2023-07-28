@@ -1,13 +1,16 @@
 import 'dart:ui'; // Import the dart:ui library for Color class
+import 'package:cartowingservice/pages/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firstpro/text_fields/my_button.dart';
-import 'package:firstpro/text_fields/square_frame.dart';
-import 'package:firstpro/text_fields/my_textfield.dart';
+import 'package:cartowingservice/classes/my_button.dart';
+import 'package:cartowingservice/classes/text_fields/square_frame.dart';
+import 'package:cartowingservice/classes/text_fields/my_textfield.dart';
+import 'package:cartowingservice/classes/check_user_authentication.dart';
 
 class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key, required this.onTap});
+
   final Function()? onTap;
-  RegisterScreen({super.key, required this.onTap});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -18,6 +21,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    CheckUserAuth.checkLoginStatus(context);
+  }
 
   // Method to sign user up
   void signUserUp() async {
@@ -55,6 +64,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     // Remove the loading circle
     Navigator.pop(context);
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomeScreen(),
+      ),
+    );
   }
 
   // Show popup for email already in use
@@ -108,7 +124,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       backgroundColor:
           Colors.transparent, // Set the background color to transparent
       body: Container(
