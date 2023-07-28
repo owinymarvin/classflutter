@@ -122,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 //logo
                 const Icon(
-                  Icons.lock,
+                  Icons.create_outlined,
                   size: 60,
                 ),
 
@@ -131,7 +131,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   'Create an account',
                   style: TextStyle(
                     color: Colors.grey[700],
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
                 ),
 

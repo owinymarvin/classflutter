@@ -36,6 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
         password: passwordcontroller.text,
       ); //handling sign in error
 
+      // ignore: use_build_context_synchronously
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
@@ -79,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 //logo
                 const Icon(
-                  Icons.lock,
+                  Icons.login_sharp,
                   size: 80,
                 ),
 
@@ -88,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   'welcome',
                   style: TextStyle(
                     color: Colors.grey[700],
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
                 ),
 
