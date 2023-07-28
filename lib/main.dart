@@ -9,17 +9,17 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MechanicApp());
+  runApp(const MechanicApp());
 }
 
 class MechanicApp extends StatelessWidget {
-  MechanicApp({super.key});
+  const MechanicApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Mechanic App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
       debugShowCheckedModeBanner: false,
       home: MainAuthPage(),
