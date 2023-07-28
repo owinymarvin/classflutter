@@ -108,6 +108,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       backgroundColor:
           Colors.transparent, // Set the background color to transparent
       body: Container(
