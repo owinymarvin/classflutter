@@ -1,3 +1,4 @@
+import 'package:cartowingservice/main.dart';
 import 'package:cartowingservice/pages/nearest_garage.dart';
 import 'package:cartowingservice/pages/report_breakdown.dart';
 import 'package:cartowingservice/pages/user_account.dart';
@@ -18,15 +19,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Medical Emergency App',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      home: Scaffold(
-        /* Drawer
-
+    return MainUserInterface(
+      newScreenToRender: Scaffold(
+        //Drawer
         drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
@@ -82,38 +77,19 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
 
-        */
-        // backgroundColor: Colors.white,
+        // scaffold app bar
         appBar: AppBar(
-          title: const Text("USER TO CAR TOWING SERVICE"),
-          // backgroundColor: Color.fromARGB(255, 5, 142, 211),
+          title: const Text("CAR TOWING SERVICE"),
           centerTitle: true,
         ),
+
+        // scaffold body
         body: IndexedStack(
           index: currentPage,
           children: bottomNavigationScreens,
         ),
-        // body: Container(
-        //   decoration: BoxDecoration(
-        //     gradient: LinearGradient(
-        //       colors: [
-        //         Color.fromARGB(255, 30, 40, 50),
-        //         Color.fromARGB(255, 43, 43, 54),
-        //       ],
-        //       begin: Alignment.topLeft,
-        //       end: Alignment.topRight,
-        //     ),
-        //   ),
-        //   child: Center(
-        //     child: Text(
-        //       'Towing cars',
-        //       style: TextStyle(
-        //         color: Colors.lightBlue,
-        //         fontSize: 20,
-        //       ),
-        //     ),
-        //   ),
-        // ),
+
+        // scaffold bottom navigation bar
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: currentPage,
             onTap: (index) {

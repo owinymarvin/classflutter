@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:cartowingservice/pages/login_screen.dart';
 import 'package:cartowingservice/pages/register_screen.dart';
 
-
-class LoginRegisterScreen extends StatefulWidget {
-  const LoginRegisterScreen({super.key});
+class LoginRegisterScreenController extends StatefulWidget {
+  const LoginRegisterScreenController({super.key});
 
   @override
-  State<LoginRegisterScreen> createState() => _LoginRegisterScreenState();
+  State<LoginRegisterScreenController> createState() =>
+      _LoginRegisterScreenControllerState();
 }
 
-class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
+class _LoginRegisterScreenControllerState
+    extends State<LoginRegisterScreenController> {
   bool showloginPage = true;
 
   void togglepages() {
