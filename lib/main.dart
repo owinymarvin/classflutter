@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firstpro/firebase_options.dart';
-import 'package:firstpro/pages/main_auth_Page.dart';
-// import 'package:firstpro/pages/welcome_screen.dart';
+
+import 'package:firstpro/pages/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -22,7 +22,9 @@ class MechanicApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: MainAuthPage(),
+      home: WelcomeScreen(
+        ontap: () {},
+      ),
     );
   }
 }

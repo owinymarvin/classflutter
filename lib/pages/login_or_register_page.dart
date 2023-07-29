@@ -3,7 +3,7 @@ import 'login_screen.dart';
 import 'Register_screen.dart';
 
 class loginOrRegisterPage extends StatefulWidget {
-  const loginOrRegisterPage({super.key});
+  const loginOrRegisterPage({super.key, required Null Function() onTap});
 
   @override
   State<loginOrRegisterPage> createState() => _loginOrRegisterPageState();

@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firstpro/text_fields/my_button.dart';
-import 'package:firstpro/text_fields/square_frame.dart';
-import 'package:firstpro/text_fields/my_textfield.dart';
+import 'package:firstpro/features/my_button.dart';
+import 'package:firstpro/features/square_frame.dart';
+import 'package:firstpro/features/my_textfield.dart';
 // import 'signup_screen.dart';
 
 class RegisterScreen extends StatefulWidget {

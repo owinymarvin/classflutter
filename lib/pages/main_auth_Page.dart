@@ -15,7 +15,9 @@ class MainAuthPage extends StatelessWidget {
 
             //user not logged in
           } else {
-            return loginOrRegisterPage();
+            return loginOrRegisterPage(
+              onTap: () {},
+            );
           }
         },
       ),
