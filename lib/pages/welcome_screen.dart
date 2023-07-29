@@ -1,77 +1,61 @@
-import 'package:cartowingservice/main.dart';
+import 'package:firstpro/pages/main_auth_Page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:cartowingservice/classes/check_user_authentication.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen(this.screenSwitcher, {super.key});
-
-  final Function() screenSwitcher;
-
+  final Function()? ontap;
+  const WelcomeScreen({super.key, required this.ontap});
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  /*
-  @override
-  void initState() {
-    super.initState();
-    CheckUserAuth.checkLoginStatus(context);
-  }
-  */
-
   @override
   Widget build(BuildContext context) {
-    return MainUserInterface(
-      newScreenToRender: Center(
+    return Scaffold(
+      backgroundColor:
+          Colors.white, // Set the screen background color to grey[300]
+      body: Center(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              'lib/images/welcome.svg',
-              // colorFilter: const ColorFilter.mode(
-              //   Colors.white,
-              //   BlendMode.srcIn,
-              // ),
-              width: 280.0,
-              semanticsLabel: 'welcome image',
+            // Replace the Icon widget with an Image widget
+            Image.asset(
+              'lib/images/tow2.png', // Replace 'build_icon.png' with the actual image path in your assets folder
+              width: 120,
+              height: 120,
+
+              // color:
+              //     Colors.grey[200], // You can add color to the image if needed
             ),
-            const SizedBox(
-              height: 40.0,
-            ),
-            const Text(
-              'Car Towing Service',
+            SizedBox(height: 20),
+            Text(
+              'Welcome to Tow Services!',
               style: TextStyle(
-                // color: Colors.white,
-                fontSize: 28.0,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[900], // Set text color to white
               ),
             ),
-            const SizedBox(
-              height: 150.0,
-            ),
-            const Text(
-              'Don\'t get stuck anymore',
-              style: TextStyle(
-                // color: Colors.white,
-                fontSize: 18.0,
-              ),
-            ),
-            const SizedBox(
-              height: 18.0,
-            ),
-            TextButton(
+            SizedBox(height: 25),
+            ElevatedButton(
               onPressed: () {
-                widget.screenSwitcher();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MainAuthPage(),
+                  ),
+                );
               },
-              child: const Text(
-                'Get Started',
-                style: TextStyle(
-                  // color: Colors.white,
-                  fontSize: 28,
-                ),
+              style: ElevatedButton.styleFrom(
+                primary: Colors
+                    .deepPurple, // Set button background color to grey[900]
+                onPrimary: Colors.white, // Set button text color to white
               ),
-            )
+              child: Text(
+                'Get started',
+                textScaleFactor: 1.5,
+              ),
+            ),
           ],
         ),
       ),
