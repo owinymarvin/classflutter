@@ -7,7 +7,7 @@ import 'package:firstpro/features/my_textfield.dart';
 
 class LoginScreen extends StatefulWidget {
   final Function()? onTap;
-  LoginScreen({super.key, required this.onTap});
+  const LoginScreen({super.key, required this.onTap});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -162,9 +162,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 30), // space this too
 
                 //apple and google signin buttons
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     //for google
                     SquareFrame(imagepath: 'lib/images/google.png'),
 

@@ -1,5 +1,6 @@
 import 'package:firstpro/pages/main_auth_Page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class WelcomeScreen extends StatefulWidget {
   final Function()? ontap;
@@ -12,22 +13,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          Colors.white, // Set the screen background color to grey[300]
+      backgroundColor: Colors.grey[300],
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            // Replace the Icon widget with an Image widget
-            Image.asset(
-              'lib/images/tow2.png', // Replace 'build_icon.png' with the actual image path in your assets folder
-              width: 120,
-              height: 120,
-
-              // color:
-              //     Colors.grey[200], // You can add color to the image if needed
+            SvgPicture.asset(
+              'lib/images/tow1.svg',
+              semanticsLabel: 'Car towing image',
+              width: 280,
             ),
-            SizedBox(height: 20),
+
+            const SizedBox(height: 20),
             Text(
               'Welcome to Tow Services!',
               style: TextStyle(
@@ -36,7 +34,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 color: Colors.grey[900], // Set text color to white
               ),
             ),
-            SizedBox(height: 25),
+            const SizedBox(height: 60,),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -47,11 +45,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 );
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors
-                    .deepPurple, // Set button background color to grey[900]
-                onPrimary: Colors.white, // Set button text color to white
+                backgroundColor: Colors.deepPurple,
+                foregroundColor: Colors.white,
               ),
-              child: Text(
+              child: const Text(
                 'Get started',
                 textScaleFactor: 1.5,
               ),

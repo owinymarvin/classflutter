@@ -7,7 +7,7 @@ import 'package:firstpro/features/my_textfield.dart';
 
 class RegisterScreen extends StatefulWidget {
   final Function()? onTap;
-  RegisterScreen({super.key, required this.onTap});
+  const RegisterScreen({super.key, required this.onTap});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();

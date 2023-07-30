@@ -1,5 +1,3 @@
-// import 'dart:js';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firstpro/home_contents/account.dart';
 import 'package:firstpro/home_contents/home.dart';
@@ -8,7 +6,8 @@ import 'package:firstpro/home_contents/settings.dart';
 import 'package:firstpro/home_contents/tow_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firstpro/features/my_drawer.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -37,22 +36,39 @@ class _HomePageState extends State<HomePage> {
   }
 
   //to be able to change selected index(Page)
-  int selectedIndex = 0;
+  int _selectedIndex = 0;
 
   //create a navigation function
   void navigateBottomBar(int index) {
     //in order to navigate we need to know the index the user is tapping
     setState(() {
-      selectedIndex = index;
+      _selectedIndex = index;
+    });
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      if (index == 0) {
+        navBarColor = const Color.fromARGB(188, 244, 67, 54);
+      } else if (index == 1) {
+        navBarColor = const Color.fromARGB(188, 76, 175, 79);
+      } else if (index == 2) {
+        navBarColor = const Color.fromARGB(188, 155, 39, 176);
+      } else if (index == 3) {
+        navBarColor = const Color.fromARGB(188, 233, 30, 98);
+      }
+      _selectedIndex = index;
     });
   }
 
   final List<Widget> pages = [
     UserHome(),
+    UserTowServices(),
     UserAccount(),
     UserSettings(),
-    UserTowServices(),
   ];
+
+  var navBarColor = const Color.fromARGB(188, 244, 67, 54);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +76,7 @@ class _HomePageState extends State<HomePage> {
       //appbar designs
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.grey.shade900,
+        backgroundColor: navBarColor,
         elevation: 0,
         title: Text('Tow Services'),
         actions: [
@@ -78,28 +94,59 @@ class _HomePageState extends State<HomePage> {
         onsignOut: signOut,
       ),
 
-      body: pages[selectedIndex],
-      bottomNavigationBar: Container(
-        color: Colors.black,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-          child: GNav(
-            // currentIndex: selectedIndex,
-            onTabChange: navigateBottomBar,
-            backgroundColor: Colors.black,
-            color: Colors.white,
-            activeColor: Colors.white,
-            tabBackgroundColor: Colors.grey.shade800,
-            gap: 8,
-            tabs: [
-              GButton(icon: Icons.home, text: 'Home'),
-              GButton(icon: Icons.car_repair_sharp, text: 'tow'),
-              GButton(icon: Icons.settings, text: 'settings'),
-              GButton(icon: Icons.person, text: 'Account'),
-            ],
+      body: pages[_selectedIndex],
+
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+              backgroundColor: Color.fromARGB(188, 244, 67, 54)),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'lib/images/tow1.svg',
+              semanticsLabel: 'Car towing image',
+              width: 30,
+              color: Colors.white,
+            ),
+            label: 'Tow',
+            backgroundColor: const Color.fromARGB(188, 76, 175, 79),
           ),
-        ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Account',
+            backgroundColor: Color.fromARGB(188, 155, 39, 176),
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+            backgroundColor: Color.fromARGB(188, 233, 30, 98),
+          ),
+        ],
+        //
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.white,
+        onTap: _onItemTapped,
       ),
     );
+    // bottomNavigationBar: Container(
+    //   color: Colors.black,
+    //   child: Padding(
+    //     padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
+    //     child: GNav(
+    //       // currentIndex: selectedIndex,
+    //       onTabChange: navigateBottomBar,
+    //       backgroundColor: Colors.black,
+    //       color: Colors.white,
+    //       activeColor: Colors.white,
+    //       tabBackgroundColor: Colors.grey.shade800,
+    //       gap: 8,
+    //       tabs: [
+    //         GButton(icon: Icons.home, text: 'Home'),
+    //         GButton(icon: Icons.car_repair_sharp, text: 'tow'),
+    //         GButton(icon: Icons.settings, text: 'settings'),
+    //         GButton(icon: Icons.person, text: 'Account'),
+    //       ],
+    //     ),
   }
 }
