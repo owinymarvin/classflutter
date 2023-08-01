@@ -4,7 +4,7 @@ class UserAccount extends StatelessWidget {
   final double accountBalance;
 
   // Provide a default value (0.0) for the accountBalance parameter
-  UserAccount({this.accountBalance = 0.0});
+  UserAccount({this.accountBalance = 20000.0});
 
   @override
   Widget build(BuildContext context) {
