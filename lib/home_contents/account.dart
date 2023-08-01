@@ -28,7 +28,7 @@ class UserAccount extends StatelessWidget {
             ),
             SizedBox(height: 5),
             Text(
-              'marvin.dan@example.com',
+              'natukundaphionah@gmail.com',
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 20),
