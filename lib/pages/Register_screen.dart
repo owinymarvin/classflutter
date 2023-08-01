@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firstpro/features/my_button.dart';
@@ -31,77 +32,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
       },
     );
 
-    // Try creating a user
-    try {
-      if (passwordController.text == confirmPasswordController.text) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
-        );
-      } else {
-        // Show error message - passwords don't match
-        showWrongPasswordMessage();
-      }
-    } on FirebaseAuthException catch (e) {
-      // Handling signup error
-      if (e.code == 'email-already-in-use') {
-        showEmailInUseMessage();
-      } else if (e.code == 'weak-password') {
-        showWeakPasswordMessage();
-      } else {
-        showGenericErrorMessage();
-      }
+    //if passwords match
+    if (passwordController.text != confirmPasswordController.text) {
+      // Remove the loading circle
+      Navigator.pop(context);
+      //display this to a user
+      displayMessage("Passwords dont match!!");
+      return;
     }
 
-    // Remove the loading circle
-    Navigator.pop(context);
+    // Try creating a user
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+
+      /*after creating a user create a new document in the cloud firestore
+      called Users*/
+      FirebaseFirestore.instance
+          .collection("Users")
+          .doc(userCredential.user!.email!)
+          .set({
+        'username': emailController.text.split('@')[0], //username
+        'bio': 'empty bio..' //initial bio info
+        //note: can add more fields here
+      });
+
+      //pop loading circle
+      if (context.mounted) Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      // Remove the loading circle
+      Navigator.pop(context);
+      //show error to user
+      displayMessage(e.code);
+    }
   }
 
   // Show popup for email already in use
-  void showEmailInUseMessage() {
+  void displayMessage(String message) {
     showDialog(
       context: context,
-      builder: (context) {
-        return const AlertDialog(
-          title: Text('Email already in use'),
-        );
-      },
-    );
-  }
-
-  // Show popup for weak password
-  void showWeakPasswordMessage() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const AlertDialog(
-          title: Text('Weak password'),
-        );
-      },
-    );
-  }
-
-  // Show popup for generic error
-  void showGenericErrorMessage() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const AlertDialog(
-          title: Text('An error occurred'),
-        );
-      },
-    );
-  }
-
-  // Method to show error message - passwords don't match
-  void showWrongPasswordMessage() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const AlertDialog(
-          title: Text('Passwords do not match'),
-        );
-      },
+      builder: (context) => AlertDialog(
+        title: Text(message),
+      ),
     );
   }
 
