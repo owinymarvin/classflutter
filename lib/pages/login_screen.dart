@@ -63,6 +63,14 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+//this helps to free up memory and avoid memory leak
+  @override
+  void dispose() {
+    emailcontroller.dispose();
+    passwordcontroller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
