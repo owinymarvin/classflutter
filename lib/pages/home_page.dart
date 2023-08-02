@@ -7,7 +7,8 @@ import 'package:firstpro/home_contents/tow_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firstpro/features/my_drawer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //
   void signOut() {
     FirebaseAuth.instance.signOut();
   }
@@ -38,13 +40,13 @@ class _HomePageState extends State<HomePage> {
   //to be able to change selected index(Page)
   int _selectedIndex = 0;
 
-  //create a navigation function
   void navigateBottomBar(int index) {
-    //in order to navigate we need to know the index the user is tapping
     setState(() {
       _selectedIndex = index;
     });
   }
+
+  var navBarColor = const Color.fromARGB(188, 244, 67, 54);
 
   void _onItemTapped(int index) {
     setState(() {
@@ -68,7 +70,28 @@ class _HomePageState extends State<HomePage> {
     UserSettings(),
   ];
 
-  var navBarColor = const Color.fromARGB(188, 244, 67, 54);
+  void main() async {
+    final headers = {
+      // Request headers
+      'Authorization': '',
+      'X-Target-Environment': '',
+      'X-Callback-Url': '',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Ocp-Apim-Subscription-Key': '{subscription key}',
+    };
+
+    final params = Uri(queryParameters: {}).query;
+
+    final url = Uri.https(
+        'sandbox.momodeveloper.mtn.com', '/collection/v1_0/bc-authorize', {});
+
+    try {
+      final response = await http.post(url, headers: headers, body: {});
+      print(response.body);
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
