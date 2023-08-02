@@ -23,7 +23,7 @@ class UserAccount extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              'John Doe',
+              'PHIONAH NATUKUNDA',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 5),
