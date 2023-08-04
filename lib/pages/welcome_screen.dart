@@ -4,7 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class WelcomeScreen extends StatefulWidget {
   final Function()? ontap;
-  const WelcomeScreen({super.key, required this.ontap});
+
+  const WelcomeScreen({Key? key, required this.ontap}) : super(key: key);
+
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
@@ -19,12 +21,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            SvgPicture.asset(
-              'lib/images/tow1.svg',
-              semanticsLabel: 'Car towing image',
-              width: 280,
+            Image.asset(
+              "lib/images/truck1.jpeg",
+              width: 300, // Set the width of the image
+              height: 300, // Set the height of the image
             ),
-
             const SizedBox(height: 20),
             Text(
               'Welcome to Tow Services!',
@@ -34,7 +35,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 color: Colors.grey[900], // Set text color to white
               ),
             ),
-            const SizedBox(height: 60,),
+            const SizedBox(height: 60),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
