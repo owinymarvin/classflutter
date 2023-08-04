@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firstpro/home_contents/Search_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -41,7 +42,7 @@ class _UserTowServicesState extends State<UserTowServices> {
             right: 0.0,
             bottom: 0.0,
             child: Container(
-              height: 320.0,
+              height: 315.0,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -59,7 +60,7 @@ class _UserTowServicesState extends State<UserTowServices> {
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 24.0, vertical: 18.0),
+                    horizontal: 23.0, vertical: 17.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -73,7 +74,7 @@ class _UserTowServicesState extends State<UserTowServices> {
                     Text(
                       'Where are you?',
                       style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: 18.0,
                       ),
                     ),
 
@@ -81,32 +82,43 @@ class _UserTowServicesState extends State<UserTowServices> {
                     SizedBox(
                       height: 20.0,
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black54,
-                            blurRadius: 6.0,
-                            spreadRadius: 0.5,
-                            offset: Offset(0.7, 0.7),
+
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SearchScreen(),
                           ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(13.0),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.search,
-                              color: Colors.blueAccent,
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black54,
+                              blurRadius: 6.0,
+                              spreadRadius: 0.5,
+                              offset: Offset(0.7, 0.7),
                             ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text("Search near by tow services")
                           ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(13.0),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.search,
+                                color: Colors.blueAccent,
+                              ),
+                              SizedBox(
+                                width: 10.0,
+                              ),
+                              Text("Search near by tow services")
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -131,7 +143,7 @@ class _UserTowServicesState extends State<UserTowServices> {
                               "Address",
                               style: TextStyle(
                                   color: Colors.black54, fontSize: 14.0),
-                            )
+                            ),
                           ],
                         ),
                       ],
