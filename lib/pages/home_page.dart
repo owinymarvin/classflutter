@@ -46,9 +46,9 @@ class _HomePageState extends State<HomePage> {
       if (index == 0) {
         navBarColor = const Color.fromARGB(188, 76, 175, 79);
       } else if (index == 1) {
-        navBarColor = const Color.fromARGB(188, 244, 67, 54);
+        navBarColor = const Color.fromARGB(188, 76, 175, 79);
       } else {
-        navBarColor = const Color.fromARGB(188, 155, 39, 176);
+        navBarColor = const Color.fromARGB(188, 76, 175, 79);
       }
 
       _selectedIndex = index;
