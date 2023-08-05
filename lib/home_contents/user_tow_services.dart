@@ -19,7 +19,7 @@ class _UserTowServicesState extends State<UserTowServices> {
   late GoogleMapController newGoogleMapController;
 
   static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
+    target: LatLng(0.3326, 32.5686),
     zoom: 14.4746,
   );
 

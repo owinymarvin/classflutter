@@ -1,6 +1,6 @@
 import 'package:firstpro/pages/main_auth_Page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 
 class WelcomeScreen extends StatefulWidget {
   final Function()? ontap;

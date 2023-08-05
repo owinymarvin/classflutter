@@ -17,7 +17,7 @@ class UserAccount extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 50,
               backgroundImage: AssetImage('images/profile.jpg'),
             ),
