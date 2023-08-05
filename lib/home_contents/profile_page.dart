@@ -129,12 +129,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
 
                 const SizedBox(height: 50),
-                ProfileTextBox(
-                  text: userData['contact'],
-                  sectionName: 'contact',
-                  onPressed: () => editfield('contact'),
-                ),
-                const SizedBox(height: 50),
 
                 //wallet
 
