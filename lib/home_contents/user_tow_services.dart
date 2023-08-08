@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firstpro/home_contents/Search_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';

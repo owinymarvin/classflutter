@@ -6,6 +6,7 @@ import 'package:firstpro/home_contents/user_tow_services.dart';
 import 'package:flutter/material.dart';
 import 'package:firstpro/features/my_drawer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:firstpro/home_contents/flutterwave/flutterwave_payments.dart';
 // import 'dart:convert';
 // import 'package:http/http.dart' as http;
 
@@ -58,6 +59,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> pages = [
     const UserTowServices(),
     UserAccount(),
+    FlutterWavePayments(),
     UserSettings(),
   ];
 
@@ -115,9 +117,14 @@ class _HomePageState extends State<HomePage> {
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.settings),
+            label: 'Payments',
+            backgroundColor: Color.fromARGB(188, 155, 39, 176),
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
             label: 'Settings',
             backgroundColor: Color.fromARGB(188, 155, 39, 176),
-          )
+          ),
         ],
         //
         currentIndex: _selectedIndex,
