@@ -42,7 +42,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                       Center(
                         child: Text(
-                          'Set drop off',
+                          'Set vehicle pickup & drop off',
                           style: TextStyle(fontSize: 18.0),
                         ),
                       ),
@@ -55,7 +55,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   Row(
                     children: [
                       Image.asset(
-                        "lib/images/pickicon.png",
+                        "assets/images/pickicon.png",
                         height: 16.0,
                         width: 16.0,
                       ),
@@ -93,7 +93,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   Row(
                     children: [
                       Image.asset(
-                        "lib/images/desticon.png",
+                        "assets/images/desticon.png",
                         height: 16.0,
                         width: 16.0,
                       ),
@@ -110,7 +110,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             padding: EdgeInsets.all(3.0),
                             child: TextField(
                               decoration: InputDecoration(
-                                hintText: "where to?",
+                                hintText: "Towing it to?",
                                 fillColor: Colors.grey[400],
                                 filled: true,
                                 border: InputBorder.none,

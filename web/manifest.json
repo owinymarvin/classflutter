@@ -1,6 +1,6 @@
 {
-    "name": "firstpro",
-    "short_name": "firstpro",
+    "name": "appusers",
+    "short_name": "appusers",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

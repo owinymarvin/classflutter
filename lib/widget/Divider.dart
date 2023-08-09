@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MapDivider extends StatelessWidget {
+class DividerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Divider(
