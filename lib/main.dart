@@ -1,43 +1,40 @@
-// import 'package:firebase_auth/firebase_auth.dart';
+// import 'dart:math';
 
-import 'package:appusers/All_screens/homepage.dart';
-import 'package:appusers/All_screens/login.dart';
-import 'package:appusers/All_screens/register.dart';
+// import 'package:appusers/All_screens/login.dart';
+// import 'package:appusers/All_screens/register.dart';
+// import 'package:appusers/All_screens/login.dart';
+import 'package:appusers/info_handler/app_info.dart';
+import 'package:appusers/theme_provider/themeprovider.dart';
+import 'package:appusers/welcome_screen/welcome.dart';
+// import 'package:appusers/welcome_screen/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-// import 'package:provider/provider.dart';
+// import 'All_screens/homepage.dart';
 
-// import 'DataHandler/appData.dart';
-
-void main() async {
+Future<void> main() async {
+  runApp(const MyApp());
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
 }
 
-// DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("Users");
-DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users");
-
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Tow service app',
-      theme: ThemeData( 
-        fontFamily: "Brand-Regular",
-        primarySwatch: Colors.green,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return ChangeNotifierProvider(
+      create: (context) => AppInfo(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        themeMode: ThemeMode.system,
+        theme: MyTheme.lightTheme,
+        darkTheme: MyTheme.darkTheme,
+        debugShowCheckedModeBanner: false,
+        home: WelcomeScreen(),
       ),
-      initialRoute: MyHomePage.idScreen,
-      routes: {
-        RegisterPage.idScreen: (context) => RegisterPage(),
-        LoginPage.idScreen: (context) => LoginPage(),
-        MyHomePage.idScreen: (context) => MyHomePage(),
-      },
-      debugShowCheckedModeBanner: false,
     );
   }
 }
