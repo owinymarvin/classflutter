@@ -38,12 +38,19 @@ dependencies:
   firebase_core: ^2.15.0
   firebase_auth: ^4.7.2
   firebase_database: ^10.2.4
+  firebase_messaging: ^14.6.5
   fluttertoast: ^8.2.2
-  google_maps_flutter: ^2.4.0
   flutter_svg: ^2.0.7
   geolocator: ^9.0.2
-  flutterwave_standard: ^1.0.8
-  uuid: ^3.0.7
+  geocoder2: ^1.4.0
+  flutter_geofire: ^2.0.3
+  flutter_polyline_points: ^1.0.0
+  location: ^5.0.2+1
+  provider: ^6.0.5
+  intl_phone_field: ^3.2.0
+  email_validator: '^2.1.16'
+  firebase_storage: ^11.2.5
+  google_maps_flutter: ^2.4.0
 
 dev_dependencies:
   flutter_test:
