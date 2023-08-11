@@ -4,13 +4,13 @@ import 'package:http/http.dart' as http;
 
 class RequestAssitant {
   static Future<dynamic> receiveRequest(String url) async {
-    http.Response httpRespons = await http.get(Uri.parse(url));
+    http.Response httpResponse = await http.get(Uri.parse(url));
 
     try {
-      if (httpRespons.statusCode == 200) //succesful
+      if (httpResponse.statusCode == 200) //succesful
 
       {
-        String responsedata = httpRespons.body;
+        String responsedata = httpResponse.body;
         var decodeResponseData = jsonDecode(responsedata);
 
         return decodeResponseData;

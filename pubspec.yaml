@@ -51,6 +51,8 @@ dependencies:
   email_validator: '^2.1.16'
   firebase_storage: ^11.2.5
   google_maps_flutter: ^2.4.0
+  http: ^0.13.6
+  
 
 dev_dependencies:
   flutter_test:

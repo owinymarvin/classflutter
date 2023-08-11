@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 class AppInfo extends ChangeNotifier {
   Directions? userPickUpLocation, userDropOffLocation;
-  int coutTotalTrips = 0;
+  int countTotalTrips = 0;
   // List<String> historyTripsKey = [];
   // List<TripsHistoryModel> allTripsHistoryInformationList = [];
 
-  void UpdatePickUpLocationAddress(Directions userPickUpAddress) {
+  void updatePickUpLocationAddress(Directions userPickUpAddress) {
     userPickUpLocation = userPickUpAddress;
     notifyListeners();
   }

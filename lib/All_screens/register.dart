@@ -44,12 +44,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
               email: emailTextEditingController.text.trim(),
               password: passwordTextEditingController.text.trim())
           .then((auth) async {
-        CurrentUser = auth.user;
+        currentUser = auth.user;
 
-        if (CurrentUser != null) {
+        if (currentUser != null) {
           //create map for database
           Map userMap = {
-            'Id': CurrentUser!.uid,
+            'Id': currentUser!.uid,
             'name': nameTextEditingController.text.trim(),
             'email': emailTextEditingController.text.trim(),
             'address': addressTextEditingController.text.trim(),
@@ -58,7 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           //add to database
           DatabaseReference userRef =
               FirebaseDatabase.instance.ref().child('users');
-          userRef.child(CurrentUser!.uid).set(userMap);
+          userRef.child(currentUser!.uid).set(userMap);
         }
         await Fluttertoast.showToast(msg: "Registered successfully");
         Navigator.push(
