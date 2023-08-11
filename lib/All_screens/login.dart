@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
               email: emailTextEditingController.text.trim(),
               password: passwordTextEditingController.text.trim())
           .then((auth) async {
-        CurrentUser = auth.user;
+        currentUser = auth.user;
 
         await Fluttertoast.showToast(msg: "Logged in successfully");
         Navigator.push(

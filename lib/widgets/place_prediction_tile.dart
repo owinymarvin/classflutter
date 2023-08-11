@@ -2,7 +2,8 @@ import 'package:appusers/Assistant/request_Assistant.dart';
 import 'package:appusers/info_handler/app_info.dart';
 import 'package:appusers/model/directions.dart';
 // import 'package:appusers/widget/progressdialog.dart';
-import 'package:appusers/widgets/progress_dialogue.dart';
+import 'package:appusers/widgets/progressdialog.dart';
+// import 'package:appusers/widgets/progress_dialogue.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,17 +24,17 @@ class _PlacePredictionDesignState extends State<PlacePredictionDesign> {
   getPlaceDirectionDetails(String? placeId, context) async {
     showDialog(
         context: context,
-        builder: (BuildContext context) => ProgressDialogue(
-              message: "Setting up dropoff. please wait...",
+        builder: (BuildContext context) => ProgressDialog(
+              message: "setting up dropoff. please wait...",
             ));
 
     String placeDirectionDetailsUrl =
-        "http://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$mapkey";
+        "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$mapkey";
     var responseApi =
         await RequestAssitant.receiveRequest(placeDirectionDetailsUrl);
     Navigator.pop(context);
 
-    if (responseApi == "Error ocurred, Failed, No Response") {
+    if (responseApi == "Error ocurred. Failed. No Response.") {
       return;
     }
 
@@ -53,7 +54,7 @@ class _PlacePredictionDesignState extends State<PlacePredictionDesign> {
         userDropOffAddress = directions.locationName!;
       });
 
-      Navigator.pop(context, "obtained gaurage Dropoff");
+      Navigator.pop(context, "obtainedDropoff");
     }
   }
 
@@ -88,7 +89,17 @@ class _PlacePredictionDesignState extends State<PlacePredictionDesign> {
                     fontSize: 15,
                     color: darktheme ? Colors.amber.shade400 : Colors.blue,
                   ),
-                )
+                ),
+
+                //secondary text
+                Text(
+                  widget.predictedPlaces!.secondary_text!,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: darktheme ? Colors.amber.shade400 : Colors.blue,
+                  ),
+                ),
               ],
             ))
           ],

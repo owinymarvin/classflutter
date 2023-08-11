@@ -23,7 +23,10 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
       var responseAutoCompleteSearch =
           await RequestAssitant.receiveRequest(urlAutoCompleteSearch);
 
-      if (responseAutoCompleteSearch == "Error ocurred, Failed, No Response") {
+      // if (responseAutoCompleteSearch == "Error ocurred. Failed. No Response.") {
+      //   return;
+      // }
+      if (responseAutoCompleteSearch == "Error ocurred. Failed. No Response.") {
         return;
       }
 
@@ -58,14 +61,16 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
             onTap: () {
               Navigator.pop(context);
             },
-            child: Icon(Icons.arrow_back,
-                color: darktheme ? Colors.black : Colors.white),
+            child: Icon(
+              Icons.arrow_back,
+              color: darktheme ? Colors.black : Colors.white,
+            ),
           ),
           title: Text(
             "Set dropoff gaurage location",
             style: TextStyle(color: darktheme ? Colors.black : Colors.white),
           ),
-          elevation: 2.0,
+          elevation: 0.0,
         ),
 
         //body
@@ -79,7 +84,10 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
                     color: Colors.white54,
                     blurRadius: 8,
                     spreadRadius: 0.5,
-                    offset: Offset(0.7, 0.7),
+                    offset: Offset(
+                      0.7,
+                      0.7,
+                    ),
                   ),
                 ],
               ),

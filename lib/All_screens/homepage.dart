@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Set<Marker> markersSet = {};
 
-  Set<Circle> CirclesSet = {};
+  Set<Circle> circlesSet = {};
 
   String userName = '';
 
@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 //provider code
         Provider.of<AppInfo>(context, listen: false)
-            .UpdatePickUpLocationAddress(userPickUpAddress);
+            .updatePickUpLocationAddress(userPickUpAddress);
       });
     } catch (e) {
       print(e);
@@ -150,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
               initialCameraPosition: _kGooglePlex,
               polylines: polylineSet,
               markers: markersSet,
-              circles: CirclesSet,
+              circles: circlesSet,
               onMapCreated: (GoogleMapController controller) {
                 _controllerGoogleMap.complete(controller);
                 newGoogleMapController = controller;
@@ -184,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
 
-            //userinterface
+            //userinterface for searching
             Positioned(
               bottom: 0,
               left: 0,
@@ -290,7 +290,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                       SearchPlacesScreen()));
                                       ////////////////////////
                                       if (responseFromSearchScreen ==
-                                          "obtained gaurage Dropoff") {
+                                          "obtainedDropoff") {
                                         setState(() {
                                           openNavigationDrawer = false;
                                         });
@@ -302,10 +302,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                     },
                                     child: Row(
                                       children: [
-                                        Icon(Icons.location_on_outlined,
-                                            color: darktheme
-                                                ? Colors.amber.shade400
-                                                : Colors.blue),
+                                        Icon(
+                                          Icons.location_on_outlined,
+                                          color: darktheme
+                                              ? Colors.amber.shade400
+                                              : Colors.blue,
+                                        ),
 
                                         //sized box
                                         SizedBox(
@@ -327,13 +329,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                               ),
                                             ),
                                             Text(
+                                              /////////////
                                               Provider.of<AppInfo>(context)
                                                           .userDropOffLocation !=
                                                       null
-                                                  ? Provider.of<AppInfo>(
+                                                  ? (Provider.of<AppInfo>(
                                                           context)
                                                       .userDropOffLocation!
-                                                      .locationName!
+                                                      .locationName!)
                                                   : "Towing it to",
                                               style: TextStyle(
                                                   color: Colors.grey,
@@ -344,7 +347,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ],
                                     ),
                                   ),
-                                ),
+                                )
                               ],
                             ),
                           )

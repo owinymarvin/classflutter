@@ -11,9 +11,9 @@ import '../info_handler/app_info.dart';
 
 class AssistantMethods {
   static void readCurrentOnlineUserInfo() async {
-    CurrentUser = firebaseAuth.currentUser;
+    currentUser = firebaseAuth.currentUser;
     DatabaseReference userRef =
-        FirebaseDatabase.instance.ref().child('users').child(CurrentUser!.uid);
+        FirebaseDatabase.instance.ref().child('users').child(currentUser!.uid);
 
     userRef.once().then((snap) {
       if (snap.snapshot.value != null) {
@@ -39,7 +39,7 @@ class AssistantMethods {
       userPickUpAddress.locationName = humanReadableAddress;
 
       Provider.of<AppInfo>(context, listen: false)
-          .UpdatePickUpLocationAddress(userPickUpAddress);
+          .updatePickUpLocationAddress(userPickUpAddress);
     }
 
     return humanReadableAddress;
