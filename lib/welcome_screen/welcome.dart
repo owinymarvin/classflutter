@@ -29,10 +29,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     });
   }
 
-//calling the timer in an initstate
+  //calling the timer in an initstate
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     startTimer();
   }
@@ -45,19 +44,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
+            Text(
+              "Discover Your Reliable Towing Companion",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontFamily: 'Montserrat', // You can adjust the font family here
+              ),
+            ),
+            SizedBox(height: 20), // Add some spacing
             SvgPicture.asset(
               'assets/images/tow1.svg',
               semanticsLabel: 'Car towing image',
               width: 280,
               color: Colors.greenAccent,
-            ),
-            Text(
-              "TOW SERVICES",
-              style: TextStyle(
-                  fontSize: 50,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Signatra',
-                  color: Colors.greenAccent),
             ),
           ],
         ),
