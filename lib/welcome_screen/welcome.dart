@@ -29,10 +29,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     });
   }
 
-//calling the timer in an initstate
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     startTimer();
   }
@@ -43,21 +41,53 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Text(
+              "Empowering Your Journeys",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontFamily: 'Montserrat',
+              ),
+            ),
+            Text(
+              "with Reliable Towing Solutions",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+                fontFamily: 'Montserrat',
+              ),
+            ),
+            SizedBox(height: 20),
             SvgPicture.asset(
               'assets/images/tow1.svg',
               semanticsLabel: 'Car towing image',
-              width: 280,
               color: Colors.greenAccent,
+              width: 280,
             ),
+            SizedBox(height: 20),
             Text(
-              "TOW SERVICES",
+              "Quick Assistance",
               style: TextStyle(
-                  fontSize: 50,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Signatra',
-                  color: Colors.greenAccent),
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontFamily: 'Montserrat',
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              "Get help fast! Our app connects you with reliable towing professionals in minutes.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontFamily: 'Montserrat',
+              ),
             ),
           ],
         ),
