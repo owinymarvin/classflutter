@@ -4,6 +4,8 @@ import 'package:appusers/Assistant/assistant_methods.dart';
 import 'package:appusers/global/global.dart';
 import 'package:appusers/global/map_key.dart';
 import 'package:appusers/info_handler/app_info.dart';
+import 'package:appusers/widgets/progressdialog.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoder2/geocoder2.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as loc;
@@ -88,6 +90,139 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // intializeGeoFireListener();
     // AssistantMethods.readTripkeysForOnlineUser(context);
+  }
+
+  //drawing polylines on map
+  Future<void> drwaPolylineFromOriginToDestination(bool darktheme) async {
+    //for our pickup location
+    var originPosition =
+        Provider.of<AppInfo>(context, listen: false).userPickUpLocation;
+//for our destination
+    var destinationPosition =
+        Provider.of<AppInfo>(context, listen: false).userDropOffLocation;
+
+    //for latlng
+    var originLatLng = LatLng(
+        originPosition!.locationLatitude!, originPosition!.locationLongitude!);
+
+    var destinationLatLng = LatLng(destinationPosition!.locationLatitude!,
+        destinationPosition!.locationLongitude!);
+
+    //show a dialogue
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => ProgressDialog(
+        message: "Please wait...",
+      ),
+    );
+    var directionDetailsInfo =
+        await AssistantMethods.obtainOriginToDestinationDirectionsDetails(
+            originLatLng, destinationLatLng);
+
+    setState(() {
+      tripDirectionDetailsInfo = directionDetailsInfo;
+    });
+//pop context
+    Navigator.pop(context);
+
+    PolylinePoints pPoints = PolylinePoints();
+    List<PointLatLng> decodePolyLinePointsResultsList =
+        pPoints.decodePolyline(directionDetailsInfo.e_points!);
+    pLineCoordinatedList.clear();
+
+    if (decodePolyLinePointsResultsList.isNotEmpty) {
+      decodePolyLinePointsResultsList.forEach((PointLatLng pointLatLng) {
+        pLineCoordinatedList
+            .add(LatLng(pointLatLng.latitude, pointLatLng.longitude));
+      });
+    }
+
+    polylineSet.clear();
+
+    //set plyline state
+    setState(() {
+      Polyline polyline = Polyline(
+        color: darktheme ? Colors.amberAccent : Colors.blue,
+        polylineId: PolylineId("PolyLineID"),
+        jointType: JointType.round,
+        points: pLineCoordinatedList,
+        startCap: Cap.roundCap,
+        endCap: Cap.roundCap,
+        geodesic: true,
+        width: 5,
+      );
+//add polyline
+      polylineSet.add(polyline);
+    });
+
+    //add markers and circles
+    LatLngBounds boundslatlng;
+    if (originLatLng.latitude > destinationLatLng.latitude &&
+        originLatLng.longitude > destinationLatLng.longitude) {
+      boundslatlng =
+          LatLngBounds(southwest: destinationLatLng, northeast: originLatLng);
+    } else if (originLatLng.longitude > destinationLatLng.longitude) {
+      boundslatlng = LatLngBounds(
+        southwest: LatLng(originLatLng.latitude, destinationLatLng.longitude),
+        northeast: LatLng(destinationLatLng.latitude, originLatLng.longitude),
+      );
+    } else if (originLatLng.latitude > destinationLatLng.latitude) {
+      boundslatlng = LatLngBounds(
+        southwest: LatLng(destinationLatLng.latitude, originLatLng.longitude),
+        northeast: LatLng(originLatLng.latitude, destinationLatLng.longitude),
+      );
+    } else {
+      boundslatlng =
+          LatLngBounds(southwest: originLatLng, northeast: destinationLatLng);
+    }
+//camera update on boundslatlng
+    newGoogleMapController!
+        .animateCamera(CameraUpdate.newLatLngBounds(boundslatlng, 65));
+//FOR origin  maker on map
+    Marker originMarker = Marker(
+      markerId: MarkerId("originID"),
+      infoWindow:
+          InfoWindow(title: originPosition.locationName, snippet: "Origin"),
+      position: originLatLng,
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+    );
+
+    //FOR destination  maker on map
+    Marker destinationMarker = Marker(
+      markerId: MarkerId("destinationID"),
+      infoWindow: InfoWindow(
+          title: destinationPosition.locationName, snippet: "Destination"),
+      position: destinationLatLng,
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+    );
+
+    //set the makers
+    setState(() {
+      markersSet.add(originMarker);
+      markersSet.add(destinationMarker);
+    });
+
+    //add circles for origin
+    Circle originCircle = Circle(
+      circleId: CircleId("originID"),
+      fillColor: Colors.blue,
+      radius: 12,
+      strokeColor: Colors.white,
+      center: originLatLng,
+    );
+
+    //add circles for destination
+    Circle destinationCircle = Circle(
+      circleId: CircleId("destinationID"),
+      fillColor: Colors.red,
+      radius: 12,
+      strokeColor: Colors.white,
+      center: destinationLatLng,
+    );
+    setState(() {
+      circlesSet.add(originCircle);
+      circlesSet.add(destinationCircle);
+    });
   }
 
   getAddressFromLatLng() async {
@@ -265,14 +400,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 Divider(
                                   height: 1,
-                                  thickness: 2,
+                                  thickness: 1,
                                   color: darktheme
                                       ? Colors.amber.shade400
                                       : Colors.blue,
                                 ),
                                 //sized box
                                 SizedBox(
-                                  height: 5,
+                                  height: 20,
                                 ),
 
                                 //padding
@@ -296,9 +431,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                         });
                                       }
 
-                                      // //polyline drawing
-                                      // await drwaPolylineFromOriginToDestination(
-                                      //     darktheme);
+                                      //polyline drawing
+                                      await drwaPolylineFromOriginToDestination(
+                                          darktheme);
                                     },
                                     child: Row(
                                       children: [
@@ -306,7 +441,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           Icons.location_on_outlined,
                                           color: darktheme
                                               ? Colors.amber.shade400
-                                              : Colors.blue,
+                                              : Colors.green,
                                         ),
 
                                         //sized box
@@ -323,7 +458,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                               style: TextStyle(
                                                 color: darktheme
                                                     ? Colors.amber.shade400
-                                                    : Colors.blue,
+                                                    : Colors.green,
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.bold,
                                               ),

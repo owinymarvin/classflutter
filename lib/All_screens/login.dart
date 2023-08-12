@@ -3,6 +3,7 @@ import 'package:appusers/All_screens/register.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../global/global.dart';
@@ -68,16 +69,30 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             Column(
               children: [
-                Image.asset(darktheme
-                    ? 'assets/images/tow2.png'
-                    : 'assets/images/tow2.png'),
+                SizedBox(
+                  height: 80,
+                ),
+                // Image.asset(darktheme
+                //     ? 'assets/images/tow2.png'
+                //     : 'assets/images/tow2.png'),
+                SvgPicture.asset(
+                  darktheme
+                      ? 'assets/images/tow1.svg'
+                      : 'assets/images/tow1.svg',
+                  semanticsLabel: 'Car towing image',
+                  width: 200,
+                  color: Colors.greenAccent,
+                ),
+                // Image.asset(darktheme
+                //     ? 'assets/images/tow2.png'
+                //     : 'assets/images/tow2.png'),
                 SizedBox(
                   height: 20,
                 ),
                 Text(
                   'Sign in..',
                   style: TextStyle(
-                    color: darktheme ? Colors.amberAccent : Colors.blue,
+                    color: darktheme ? Colors.amberAccent : Colors.greenAccent,
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
@@ -223,7 +238,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: ElevatedButton.styleFrom(
                                 primary: darktheme
                                     ? Colors.amber.shade400
-                                    : Colors.blue,
+                                    : Colors.greenAccent,
                                 onPrimary:
                                     darktheme ? Colors.black : Colors.white,
                                 elevation: 0,
