@@ -1,6 +1,7 @@
 // import 'dart:math';
 
 // import 'package:email_validator/email_validator.dart';
+import 'package:appusers/All_screens/forgot_password.dart';
 import 'package:appusers/All_screens/homepage.dart';
 import 'package:appusers/All_screens/login.dart';
 import 'package:email_validator/email_validator.dart';
@@ -8,6 +9,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
@@ -87,16 +89,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             Column(
               children: [
-                Image.asset(darktheme
-                    ? 'assets/images/tow2.png'
-                    : 'assets/images/tow2.png'),
+                SizedBox(
+                  height: 100,
+                ),
+                // Image.asset(darktheme
+                //     ? 'assets/images/tow2.png'
+                //     : 'assets/images/tow2.png'),
+                SvgPicture.asset(
+                  darktheme
+                      ? 'assets/images/tow1.svg'
+                      : 'assets/images/tow1.svg',
+                  semanticsLabel: 'Car towing image',
+                  width: 200,
+                  color: Colors.greenAccent,
+                ),
                 SizedBox(
                   height: 20,
                 ),
                 Text(
                   'Register for Tow services',
                   style: TextStyle(
-                    color: darktheme ? Colors.amberAccent : Colors.blue,
+                    color: darktheme ? Colors.amberAccent : Colors.greenAccent,
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
@@ -460,7 +473,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               style: ElevatedButton.styleFrom(
                                 primary: darktheme
                                     ? Colors.amber.shade400
-                                    : Colors.blue,
+                                    : Colors.greenAccent,
                                 onPrimary:
                                     darktheme ? Colors.black : Colors.white,
                                 elevation: 0,
@@ -484,7 +497,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
 
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (c) =>
+                                            ForgotPasswordScreen()));
+                              },
                               child: Text(
                                 "Forgot password",
                                 style: TextStyle(

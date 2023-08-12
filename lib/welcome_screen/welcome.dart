@@ -5,6 +5,7 @@ import 'package:appusers/All_screens/login.dart';
 import 'package:appusers/Assistant/assistant_methods.dart';
 import 'package:appusers/global/global.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -40,13 +41,25 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(
-          "TOW SERVICES",
-          style: TextStyle(
-            fontSize: 50,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Signatra',
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgPicture.asset(
+              'assets/images/tow1.svg',
+              semanticsLabel: 'Car towing image',
+              width: 280,
+              color: Colors.greenAccent,
+            ),
+            Text(
+              "TOW SERVICES",
+              style: TextStyle(
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Signatra',
+                  color: Colors.greenAccent),
+            ),
+          ],
         ),
       ),
     );

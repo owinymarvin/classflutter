@@ -56,7 +56,8 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
       child: Scaffold(
         backgroundColor: darktheme ? Colors.black : Colors.white,
         appBar: AppBar(
-          backgroundColor: darktheme ? Colors.amber.shade400 : Colors.blue,
+          backgroundColor:
+              darktheme ? Colors.amber.shade400 : Colors.greenAccent,
           leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -78,7 +79,7 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: darktheme ? Colors.amber.shade400 : Colors.blue,
+                color: darktheme ? Colors.amber.shade400 : Colors.greenAccent,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.white54,
