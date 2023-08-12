@@ -29,7 +29,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     });
   }
 
-  //calling the timer in an initstate
   @override
   void initState() {
     super.initState();
@@ -39,30 +38,60 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "Discover Your Reliable Towing Companion",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-                fontFamily: 'Montserrat', // You can adjust the font family here
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: 100), // Adjust the spacing as needed
+          Text(
+            "Empowering Your Journeys",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              fontFamily: 'Montserrat',
+            ),
+          ),
+          Text(
+            "with Reliable Towing Solutions",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.grey,
+              fontFamily: 'Montserrat',
+            ),
+          ),
+          SizedBox(height: 20),
+          SvgPicture.asset(
+            'assets/images/tow1.svg',
+            semanticsLabel: 'Car towing image',
+            color: Colors.greenAccent,
+            width: 280,
+          ),
+          SizedBox(height: 20),
+          Column(
+            children: [
+              Text(
+                "Quick Assistance",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
-            ),
-            SizedBox(height: 20), // Add some spacing
-            SvgPicture.asset(
-              'assets/images/tow1.svg',
-              semanticsLabel: 'Car towing image',
-              width: 280,
-              color: Colors.greenAccent,
-            ),
-          ],
-        ),
+              SizedBox(height: 10),
+              Text(
+                "Get help fast! Our app connects you with reliable towing professionals in minutes.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
