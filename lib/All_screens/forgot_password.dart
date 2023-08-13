@@ -48,6 +48,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           children: [
             Column(
               children: [
+                SizedBox(
+                  height: 80,
+                ),
                 SvgPicture.asset(
                   darktheme
                       ? 'assets/images/tow1.svg'

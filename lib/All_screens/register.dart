@@ -51,7 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (currentUser != null) {
           //create map for database
           Map userMap = {
-            'Id': currentUser!.uid,
+            'id': currentUser!.uid,
             'name': nameTextEditingController.text.trim(),
             'email': emailTextEditingController.text.trim(),
             'address': addressTextEditingController.text.trim(),
