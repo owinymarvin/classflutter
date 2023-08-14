@@ -1,19 +1,21 @@
 import 'dart:async';
 import 'package:appusers/All_screens/Search_Places.dart';
+import 'package:appusers/All_screens/precise_pickupLocation.dart';
 import 'package:appusers/Assistant/assistant_methods.dart';
 import 'package:appusers/global/global.dart';
-import 'package:appusers/global/map_key.dart';
+// import 'package:appusers/global/map_key.dart';
 import 'package:appusers/info_handler/app_info.dart';
 import 'package:appusers/widgets/progressdialog.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:geocoder2/geocoder2.dart';
+// import 'package:geocoder2/geocoder2.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as loc;
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../model/directions.dart';
+// import '../model/directions.dart';
+import 'drawer_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -225,28 +227,28 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  getAddressFromLatLng() async {
-    try {
-      GeoData data = await Geocoder2.getDataFromCoordinates(
-          latitude: pickLocation!.latitude,
-          longitude: pickLocation!.longitude,
-          googleMapApiKey: mapkey);
+//   getAddressFromLatLng() async {
+//     try {
+//       GeoData data = await Geocoder2.getDataFromCoordinates(
+//           latitude: pickLocation!.latitude,
+//           longitude: pickLocation!.longitude,
+//           googleMapApiKey: mapkey);
 
-      setState(() {
-        Directions userPickUpAddress = Directions();
-        userPickUpAddress.locationLatitude = pickLocation!.latitude;
-        userPickUpAddress.locationLongitude = pickLocation!.longitude;
-        userPickUpAddress.locationName = data.address;
-        // _address = data.address;
+//       setState(() {
+//         Directions userPickUpAddress = Directions();
+//         userPickUpAddress.locationLatitude = pickLocation!.latitude;
+//         userPickUpAddress.locationLongitude = pickLocation!.longitude;
+//         userPickUpAddress.locationName = data.address;
+//         // _address = data.address;
 
-//provider code
-        Provider.of<AppInfo>(context, listen: false)
-            .updatePickUpLocationAddress(userPickUpAddress);
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
+// //provider code
+//         Provider.of<AppInfo>(context, listen: false)
+//             .updatePickUpLocationAddress(userPickUpAddress);
+//       });
+//     } catch (e) {
+//       print(e);
+//     }
+//   }
 
   checkIfLocationPermissionAllowed() async {
     _locationPermission = await Geolocator.requestPermission();
@@ -275,9 +277,13 @@ class _MyHomePageState extends State<MyHomePage> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
+        key: _scaffoldState,
+        //drawer
+        drawer: DrawerScreen(),
         body: Stack(
           children: [
             GoogleMap(
+              padding: EdgeInsets.only(top: 40, bottom: bottomPaddingofMap),
               mapType: MapType.normal,
               myLocationEnabled: true,
               zoomGesturesEnabled: true,
@@ -290,31 +296,54 @@ class _MyHomePageState extends State<MyHomePage> {
                 _controllerGoogleMap.complete(controller);
                 newGoogleMapController = controller;
 
-                setState(() {});
+                setState(() {
+                  bottomPaddingofMap = 200;
+                });
                 //function locate user position
                 locateUserPosition();
               },
-              //pick location using camera
-              onCameraMove: (CameraPosition? position) {
-                if (pickLocation != position!.target) {
-                  setState(() {
-                    pickLocation = position.target;
-                  });
-                }
-              },
-              //get address
-              onCameraIdle: () {
-                getAddressFromLatLng();
-              },
+              //   //pick location using camera
+              //   onCameraMove: (CameraPosition? position) {
+              //     if (pickLocation != position!.target) {
+              //       setState(() {
+              //         pickLocation = position.target;
+              //       });
+              //     }
+              //   },
+              //   //get address
+              //   onCameraIdle: () {
+              //     getAddressFromLatLng();
+              //   },
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 35.0),
-                child: Image.asset(
-                  'assets/images/pickicon.png',
-                  height: 45,
-                  width: 45,
+            // Align(
+            //   alignment: Alignment.center,
+            //   child: Padding(
+            //     padding: const EdgeInsets.only(bottom: 35.0),
+            //     child: Image.asset(
+            //       'assets/images/pickicon.png',
+            //       height: 45,
+            //       width: 45,
+            //     ),
+            //   ),
+            // ),
+
+            //drawer customized button
+            Positioned(
+              top: 50,
+              left: 20,
+              child: Container(
+                child: GestureDetector(
+                  onTap: () {
+                    _scaffoldState.currentState!.openDrawer();
+                  },
+                  child: CircleAvatar(
+                    backgroundColor:
+                        darktheme ? Colors.amber.shade400 : Colors.white,
+                    child: Icon(
+                      Icons.menu,
+                      color: darktheme ? Colors.black : Colors.green,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -375,14 +404,21 @@ class _MyHomePageState extends State<MyHomePage> {
                                             ),
                                           ),
                                           Text(
+                                            // Provider.of<AppInfo>(context)
+                                            //             .userPickUpLocation !=
+                                            //         null
+                                            //     ? (Provider.of<AppInfo>(context)
+                                            //                 .userPickUpLocation!
+                                            //                 .locationName!)
+                                            //             .substring(0, 24) +
+                                            //         "..."
+                                            //     : "Not getting Address",
                                             Provider.of<AppInfo>(context)
                                                         .userPickUpLocation !=
                                                     null
-                                                ? (Provider.of<AppInfo>(context)
-                                                            .userPickUpLocation!
-                                                            .locationName!)
-                                                        .substring(0, 24) +
-                                                    "..."
+                                                ? Provider.of<AppInfo>(context)
+                                                    .userPickUpLocation!
+                                                    .locationName!
                                                 : "Not getting Address",
                                             style: TextStyle(
                                                 color: Colors.grey,
@@ -485,6 +521,66 @@ class _MyHomePageState extends State<MyHomePage> {
                                 )
                               ],
                             ),
+                          ),
+
+                          //sized box
+                          SizedBox(
+                            height: 5,
+                          ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (c) =>
+                                              PrecisePickupScreen()));
+                                },
+                                child: Text(
+                                  "Change Pickup",
+                                  style: TextStyle(
+                                    color:
+                                        darktheme ? Colors.black : Colors.white,
+                                  ),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  primary: darktheme
+                                      ? Colors.amber.shade400
+                                      : Colors.greenAccent,
+                                  textStyle: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+
+                              //sized box
+                              SizedBox(
+                                width: 10,
+                              ),
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "Order Service",
+                                  style: TextStyle(
+                                    color:
+                                        darktheme ? Colors.black : Colors.white,
+                                  ),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  primary: darktheme
+                                      ? Colors.amber.shade400
+                                      : Colors.orangeAccent,
+                                  textStyle: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ],
                           )
                         ],
                       ),
