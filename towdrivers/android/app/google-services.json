@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "475535792445",
+    "firebase_url": "https://loginapp-5ee60-default-rtdb.firebaseio.com",
+    "project_id": "loginapp-5ee60",
+    "storage_bucket": "loginapp-5ee60.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475535792445:android:a48f955209e21c269b8d54",
+        "android_client_info": {
+          "package_name": "com.example.appusers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "475535792445-s97dn3f2bcg66lsoop2o5n9h0n2n4ul4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwUVDA835K28gyT1ZGIXljr7fGJeOORJw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "475535792445-s97dn3f2bcg66lsoop2o5n9h0n2n4ul4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475535792445:android:4e56230370e86bd79b8d54",
+        "android_client_info": {
+          "package_name": "com.example.towdrivers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "475535792445-s97dn3f2bcg66lsoop2o5n9h0n2n4ul4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwUVDA835K28gyT1ZGIXljr7fGJeOORJw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "475535792445-s97dn3f2bcg66lsoop2o5n9h0n2n4ul4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
