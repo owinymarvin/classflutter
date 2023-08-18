@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:appusers/Assistant/request_Assistant.dart';
 import 'package:appusers/global/global.dart';
 import 'package:appusers/model/directions.dart';
@@ -10,6 +12,7 @@ import 'package:provider/provider.dart';
 import '../global/map_key.dart';
 import '../info_handler/app_info.dart';
 import '../model/direction_details_info.dart';
+import 'package:http/http.dart' as http;
 
 class AssistantMethods {
   static void readCurrentOnlineUserInfo() async {
@@ -74,5 +77,53 @@ class AssistantMethods {
         responseDirectionApi["routes"][0]["legs"][0]["duration"]["value"];
     //return
     return directionDetailsInfo;
+  }
+
+  static double calculateFareAmountFromOriginToDestination(
+      DirectionDetailsInfo directionDetailsInfo) {
+    double timeTravelledFareAmountPerMinute =
+        (directionDetailsInfo.duration_value! / 60) * 0.1;
+    /////////
+    double distanceTravelledFareAmountPerKilometer =
+        (directionDetailsInfo.duration_value! / 1000) * 0.1;
+
+    //
+    double totalFareAmount = timeTravelledFareAmountPerMinute +
+        distanceTravelledFareAmountPerKilometer;
+    return double.parse(totalFareAmount.toStringAsFixed(1));
+  }
+
+  static sendNotificationToDriverNow(
+      String deviceRegistrationToken, String userRideRequestId, context) async {
+    String destinationAddress = userDropOffAddress;
+
+    Map<String, String> headerNotification = {
+      'Content-Type': 'application/json',
+      'Authorization': cloudMessagingServerToken,
+    };
+    Map bodyNotification = {
+      "body": "Destination Address:\n$destinationAddress.",
+      "title": "New Trip Request"
+    };
+
+    Map dataMap = {
+      "click_action": "FLUTTER_NOTIFICATION_CLICK",
+      "id": "1",
+      "status": "done",
+      "rideRequestId": userRideRequestId
+    };
+
+    Map officialNotificationFormat = {
+      "notification": bodyNotification,
+      "data": dataMap,
+      "priority": "high",
+      "to": deviceRegistrationToken,
+    };
+
+    var responseNotification = http.post(
+      Uri.parse("https://fcm.googleapis.com/fcm/send"),
+      headers: headerNotification,
+      body: jsonEncode(officialNotificationFormat),
+    );
   }
 }

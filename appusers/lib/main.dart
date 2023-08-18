@@ -6,6 +6,7 @@
 import 'package:appusers/info_handler/app_info.dart';
 import 'package:appusers/theme_provider/themeprovider.dart';
 import 'package:appusers/welcome_screen/welcome.dart';
+import 'package:appusers/widgets/pay_fare_amount_dialogue.dart';
 // import 'package:appusers/welcome_screen/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

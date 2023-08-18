@@ -8,9 +8,13 @@ import 'package:appusers/global/global.dart';
 // import 'package:appusers/global/map_key.dart';
 import 'package:appusers/info_handler/app_info.dart';
 import 'package:appusers/model/active_nearby_available_drivers.dart';
+import 'package:appusers/welcome_screen/welcome.dart';
 import 'package:appusers/widgets/progressdialog.dart';
+import 'package:firebase_database/firebase_database.dart';
+// import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:geocoder2/geocoder2.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as loc;
@@ -19,6 +23,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 // import '../model/directions.dart';
+import '../widgets/pay_fare_amount_dialogue.dart';
 import 'drawer_screen.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -46,6 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
   double searchLocationContainerHeight = 220;
   double waitingResponsefromDriverContainerHeight = 0;
   double assignedDriverInfoContainerHeight = 0;
+  //suggested ride
+  double suggestedRidesContainerHeight = 0;
+  double searchingForDriverContainerHeight = 0;
 
   Position? userCurrentPosition;
   var geolocation = Geolocator();
@@ -69,6 +77,20 @@ class _MyHomePageState extends State<MyHomePage> {
   bool activeNearbyDriverKeysLoaded = false;
 
   BitmapDescriptor? activeNearbyIcon;
+
+  DatabaseReference? referenceRideRequest;
+
+  String selectedVehicleType = "";
+
+  String driverRideStatus = "Driver is coming";
+
+  StreamSubscription<DatabaseEvent>? tripRidesRequestInfoStreamSubscription;
+
+  List<ActiveNearByAvailableDrivers> onlineNearByAvailableDriversList = [];
+
+  String userRideRequestStatus = "";
+
+  bool requestPositionInfo = true;
 
   //Locate user position
   locateUserPosition() async {
@@ -114,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
             activeNearByAvailableDrivers.locationLatitude = map["latitude"];
             activeNearByAvailableDrivers.locationLongitude = map["longitude"];
             activeNearByAvailableDrivers.driverId = map["key"];
-            GeofireAssistant.ActiveNearByAvailableDriversList.add(
+            GeoFireAssistant.ActiveNearByAvailableDriversList.add(
                 activeNearByAvailableDrivers);
             if (activeNearbyDriverKeysLoaded == true) {
               displayActiveDriversOnUsersMap();
@@ -122,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
             break;
           //whenever any driver become non active/online
           case Geofire.onKeyExited:
-            GeofireAssistant.deleteOfflineDriverFromList(map["key"]);
+            GeoFireAssistant.deleteOfflineDriverFromList(map["key"]);
             displayActiveDriversOnUsersMap();
             break;
           //if a drive moves update driver location
@@ -132,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
             activeNearByAvailableDrivers.locationLatitude = map["latitude"];
             activeNearByAvailableDrivers.locationLongitude = map["longitude"];
             activeNearByAvailableDrivers.driverId = map["key"];
-            GeofireAssistant.updateActiveNearByAvailableDriverLocation(
+            GeoFireAssistant.updateActiveNearByAvailableDriverLocation(
                 activeNearByAvailableDrivers);
             displayActiveDriversOnUsersMap();
             break;
@@ -156,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       Set<Marker> driversMarkerSet = Set<Marker>();
       for (ActiveNearByAvailableDrivers eachDriver
-          in GeofireAssistant.ActiveNearByAvailableDriversList) {
+          in GeoFireAssistant.ActiveNearByAvailableDriversList) {
         LatLng eachDriverActivePosition =
             LatLng(eachDriver.locationLatitude!, eachDriver.locationLongitude!);
 
@@ -175,10 +197,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 //create active nearby
+////////////////////////
+//////////////////////
+/////////////////////////
   createActiveNearByDriverIconMarker() {
     if (activeNearbyIcon == null) {
       ImageConfiguration imageConfiguration =
-          createLocalImageConfiguration(context, size: const Size(0.2, 0.2));
+          createLocalImageConfiguration(context, size: Size(32, 32));
       BitmapDescriptor.fromAssetImage(
               imageConfiguration, 'assets/images/pickicon.png')
           .then((value) {
@@ -186,6 +211,8 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
   }
+  ///////////////////////////
+  ///////////////////////////
 
   //drawing polylines on map
   Future<void> drwaPolylineFromOriginToDestination(bool darktheme) async {
@@ -320,6 +347,22 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+//show search for driver container
+  void showSearchingForDriversContainers() {
+    setState(() {
+      searchingForDriverContainerHeight = 200;
+    });
+  }
+
+  ///
+  //function
+  void showSuggestedRidesContainer() {
+    setState(() {
+      suggestedRidesContainerHeight = 400;
+      bottomPaddingofMap = 400;
+    });
+  }
+
 //   getAddressFromLatLng() async {
 //     try {
 //       GeoData data = await Geocoder2.getDataFromCoordinates(
@@ -354,9 +397,266 @@ class _MyHomePageState extends State<MyHomePage> {
 
   //user has permission to allow location
 
+  saveRideRequestInformation(String selectedVehicleType) {
+    //save ride requset information
+    referenceRideRequest =
+        FirebaseDatabase.instance.ref().child("All Tow ride request").push();
+
+    var originLocation =
+        Provider.of<AppInfo>(context, listen: false).userPickUpLocation;
+    var destinationLocation =
+        Provider.of<AppInfo>(context, listen: false).userDropOffLocation;
+
+    Map originLocationMap = {
+      //key value
+      "latitude": originLocation!.locationLatitude.toString(),
+      "longitude": originLocation.locationLongitude.toString()
+    };
+    Map destinationLocationMap = {
+      //key value
+      "latitude": destinationLocation!.locationLatitude.toString(),
+      "longitude": destinationLocation.locationLongitude.toString()
+    };
+
+    Map userInformationMap = {
+      "origin": originLocationMap,
+      "destination": destinationLocationMap,
+      "time": DateTime.now().toString(),
+      "userName": userModelCurrentinfo!.name,
+      "userPhone": userModelCurrentinfo!.phone,
+      "originAddress": originLocation.locationName,
+      "destinationAddress": destinationLocation.locationName,
+      "driverId": "waiting",
+    };
+    referenceRideRequest!.set(userInformationMap);
+
+    tripRidesRequestInfoStreamSubscription =
+        referenceRideRequest!.onValue.listen((eventSnap) async {
+      if (eventSnap.snapshot.value == null) {
+        return;
+      }
+      if ((eventSnap.snapshot.value as Map)["car_details"] != null) {
+        setState(() {
+          driverCarDetails =
+              (eventSnap.snapshot.value as Map)["car_details"].toString();
+        });
+      }
+
+      if ((eventSnap.snapshot.value as Map)["driverPhone"] != null) {
+        setState(() {
+          driverCarDetails =
+              (eventSnap.snapshot.value as Map)["driverPhone"].toString();
+        });
+      }
+
+      if ((eventSnap.snapshot.value as Map)["driverName"] != null) {
+        setState(() {
+          driverCarDetails =
+              (eventSnap.snapshot.value as Map)["driverName"].toString();
+        });
+      }
+
+      if ((eventSnap.snapshot.value as Map)["status"] != null) {
+        setState(() {
+          userRideRequestStatus =
+              (eventSnap.snapshot.value as Map)["status"].toString();
+        });
+      }
+      if ((eventSnap.snapshot.value as Map)["driverLocation"] != null) {
+        double driverCurrentPositionLat = double.parse(
+            (eventSnap.snapshot.value as Map)["driverLocation"]["latitude"]
+                .toString());
+
+        double driverCurrentPositionLng = double.parse(
+            (eventSnap.snapshot.value as Map)["driverLocation"]["longitude"]
+                .toString());
+
+        LatLng driverCurrentPositionLatLng =
+            LatLng(driverCurrentPositionLat, driverCurrentPositionLng);
+
+        //if status is equal to accepted
+        if (userRideRequestStatus == "accepted") {
+          updateArivalTimeToUserPickUpLocation(driverCurrentPositionLatLng);
+        }
+        //status = arrived
+        if (userRideRequestStatus == "arrived") {
+          setState(() {
+            driverRideStatus = "Driver has arrived";
+          });
+        }
+
+        //status
+        if (userRideRequestStatus == "ontrip") {
+          updateReachingTimeToUserDropOffLocation(driverCurrentPositionLatLng);
+        }
+
+        if (userRideRequestStatus == "ended") {
+          if ((eventSnap.snapshot.value as Map)["fareAmount"] != null) {
+            double fareAmount = double.parse(
+                (eventSnap.snapshot.value as Map)["fareAmount"].toString());
+
+            var response = await showDialog(
+                context: context,
+                builder: (BuildContext context) => PayFareAmountDialogue(
+                      fareAmount: fareAmount,
+                    ));
+            if (response == "Cash Paid") {
+              //user can rate
+              if ((eventSnap.snapshot.value as Map)["driverId"] != null) {
+                String assignedDriverId =
+                    (eventSnap.snapshot.value as Map)["driverId"].toString();
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (c) => RateDriverScreen()));
+
+                referenceRideRequest!.onDisconnect();
+                tripRidesRequestInfoStreamSubscription!.cancel();
+              }
+            }
+          }
+        }
+      }
+    });
+
+    onlineNearByAvailableDriversList =
+        GeoFireAssistant.ActiveNearByAvailableDriversList;
+    searchNearestOnlineDrivers(selectedVehicleType);
+  }
+
+  //here
+  searchNearestOnlineDrivers(String selectedVehicleType) async {
+    if (onlineNearByAvailableDriversList.length == 0) {
+      //cancel the ride request info
+      referenceRideRequest!.remove();
+
+      setState(() {
+        polylineSet.clear();
+        markersSet.clear();
+        circlesSet.clear();
+        pLineCoordinatedList.clear();
+      });
+
+      Fluttertoast.showToast(msg: "No Online Nearest Driver Available");
+      Fluttertoast.showToast(msg: "Search Again\n Restarting App");
+
+      Future.delayed(Duration(milliseconds: 4000), () {
+        referenceRideRequest!.remove();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (c) => WelcomeScreen()));
+      });
+
+      return;
+    }
+    await retrieveOnlineDriversInformation(onlineNearByAvailableDriversList);
+    print("driver List: " + driversList.toString());
+
+    for (int i = 0; i < driversList.length; i++) {
+      if (driversList[i]["car_details"]["type"] == selectedVehicleType) {
+        AssistantMethods.sendNotificationToDriverNow(
+            driversList[i]["token"], referenceRideRequest!.key!, context);
+      }
+    }
+    Fluttertoast.showToast(msg: "Notification sent Succesfully");
+
+    showSearchingForDriversContainers();
+
+    await FirebaseDatabase.instance
+        .ref()
+        .child("All Ride Requests")
+        .child(referenceRideRequest!.key!)
+        .child("driverId")
+        .onValue
+        .listen((eventRideRequestSnapshot) {
+      print("EventSnapshot: ${eventRideRequestSnapshot.snapshot.value}");
+
+      if (eventRideRequestSnapshot.snapshot.value != null) {
+        if (eventRideRequestSnapshot.snapshot.value != "waiting") {
+          showUIForAssignedDriverInfo();
+        }
+      }
+    });
+  }
+
+  updateArivalTimeToUserPickUpLocation(driverCurrentPositionLatLng) async {
+    if (requestPositionInfo == true) {
+      requestPositionInfo = false;
+      LatLng userPickUpPosition =
+          LatLng(userCurrentPosition!.latitude, userCurrentPosition!.longitude);
+      var directionDetailsInfo =
+          await AssistantMethods.obtainOriginToDestinationDirectionsDetails(
+        driverCurrentPositionLatLng,
+        userPickUpPosition,
+      );
+
+      if (directionDetailsInfo == null) {
+        return;
+      }
+      setState(() {
+        driverRideStatus = "Driver is coming: " +
+            directionDetailsInfo.duration_text.toString();
+      });
+      requestPositionInfo = true;
+    }
+  }
+
+  updateReachingTimeToUserDropOffLocation(driverCurrentPositionLatLng) async {
+    if (requestPositionInfo == true) {
+      requestPositionInfo = false;
+
+      var dropOffLocation =
+          Provider.of<AppInfo>(context, listen: false).userDropOffLocation;
+      LatLng userDestinationPosition = LatLng(
+        dropOffLocation!.locationLatitude!,
+        dropOffLocation.locationLongitude!,
+      );
+
+      var directionDetailsInfo =
+          await AssistantMethods.obtainOriginToDestinationDirectionsDetails(
+        driverCurrentPositionLatLng,
+        userDestinationPosition,
+      );
+
+      if (directionDetailsInfo == null) {
+        return;
+      }
+      setState(() {
+        driverRideStatus = "Going towards destination: " +
+            directionDetailsInfo.duration_text.toString();
+      });
+
+      requestPositionInfo = true;
+    }
+  }
+
+  //show UI for assigned driver
+  showUIForAssignedDriverInfo() {
+    setState(() {
+      waitingResponsefromDriverContainerHeight = 0;
+      searchLocationContainerHeight = 0;
+      assignedDriverInfoContainerHeight = 200;
+      suggestedRidesContainerHeight = 0;
+      bottomPaddingofMap = 200;
+    });
+  }
+
+  retrieveOnlineDriversInformation(List onlineNearestDriversList) async {
+    driversList.clear();
+    DatabaseReference ref = FirebaseDatabase.instance.ref().child("drivers");
+
+    for (int i = 0; i < onlineNearestDriversList.length; i++) {
+      await ref
+          .child(onlineNearestDriversList[i].driverId.toString())
+          .once()
+          .then((dataSnapshot) {
+        var driverKeyInfo = dataSnapshot.snapshot.value;
+
+        driversList.add(driverKeyInfo);
+        print("driver key information = " + driversList.toString());
+      });
+    }
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     checkIfLocationPermissionAllowed();
   }
@@ -365,8 +665,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     bool darktheme =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
-
     createActiveNearByDriverIconMarker();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -429,6 +729,9 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Container(
                 child: GestureDetector(
                   onTap: () {
+                    //                   if (_scaffoldState.currentState != null) {
+                    //   _scaffoldState.currentState!.openDrawer();
+                    // }
                     _scaffoldState.currentState!.openDrawer();
                   },
                   child: CircleAvatar(
@@ -449,7 +752,7 @@ class _MyHomePageState extends State<MyHomePage> {
               left: 0,
               right: 0,
               child: Padding(
-                padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
+                padding: EdgeInsets.fromLTRB(10, 50, 10, 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -635,7 +938,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                               PrecisePickupScreen()));
                                 },
                                 child: Text(
-                                  "Change Pickup",
+                                  "Change Pickup Address",
                                   style: TextStyle(
                                     color:
                                         darktheme ? Colors.black : Colors.white,
@@ -657,9 +960,20 @@ class _MyHomePageState extends State<MyHomePage> {
                                 width: 10,
                               ),
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  if (Provider.of<AppInfo>(context,
+                                              listen: false)
+                                          .userDropOffLocation !=
+                                      null) {
+                                    showSuggestedRidesContainer();
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg:
+                                            "Please Select Destination Location");
+                                  }
+                                },
                                 child: Text(
-                                  "Order Service",
+                                  "Charges",
                                   style: TextStyle(
                                     color:
                                         darktheme ? Colors.black : Colors.white,
@@ -679,11 +993,337 @@ class _MyHomePageState extends State<MyHomePage> {
                           )
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
+
+            //UI for suggested rides
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Container(
+                height: suggestedRidesContainerHeight,
+                decoration: BoxDecoration(
+                  color: darktheme ? Colors.black : Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(20),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              color: darktheme
+                                  ? Colors.amber.shade400
+                                  : Colors.blue,
+                              borderRadius: BorderRadius.circular(2),
+                            ),
+                            child: Icon(
+                              Icons.location_on,
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Text(
+                            Provider.of<AppInfo>(context).userPickUpLocation !=
+                                    null
+                                ? (Provider.of<AppInfo>(context)
+                                            .userPickUpLocation!
+                                            .locationName!)
+                                        .substring(0, 24) +
+                                    "..."
+                                : "Not getting Address",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              color: Colors.greenAccent,
+                              borderRadius: BorderRadius.circular(2),
+                            ),
+                            child: Icon(
+                              Icons.location_on,
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Text(
+                            Provider.of<AppInfo>(context).userDropOffLocation !=
+                                    null
+                                ? (Provider.of<AppInfo>(context)
+                                    .userDropOffLocation!
+                                    .locationName!)
+                                : "Towing it to",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "SUGGESTED Tow RIDES",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedVehicleType = "Flatbed";
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: selectedVehicleType == "Flatbed"
+                                    ? (darktheme
+                                        ? Colors.amber.shade400
+                                        : Colors.greenAccent)
+                                    : (darktheme
+                                        ? Colors.black54
+                                        : Colors.grey[100]),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              //for vehicle images
+                              child: Padding(
+                                padding: EdgeInsets.all(22.0),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/car_android.png",
+                                      scale: 2,
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      "Flatbed",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: selectedVehicleType == "Flatbed"
+                                            ? (darktheme
+                                                ? Colors.black
+                                                : Colors.white)
+                                            : (darktheme
+                                                ? Colors.white
+                                                : Colors.black),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 2,
+                                    ),
+                                    Text(
+                                      tripDirectionDetailsInfo != null
+                                          ? "UGX\n${((AssistantMethods.calculateFareAmountFromOriginToDestination(tripDirectionDetailsInfo!) * 0.5) * 107).toStringAsFixed(1)}"
+                                          : "null",
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          //hook and chain
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedVehicleType = "Hook&Chain";
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: selectedVehicleType == "Hook&Chain"
+                                    ? (darktheme
+                                        ? Colors.amber.shade400
+                                        : Colors.greenAccent)
+                                    : (darktheme
+                                        ? Colors.black54
+                                        : Colors.grey[100]),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              //for vehicle images
+                              child: Padding(
+                                padding: EdgeInsets.all(22.0),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/car_android.png",
+                                      scale: 2,
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      "Hook&Chain",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            selectedVehicleType == "Hook&Chain"
+                                                ? (darktheme
+                                                    ? Colors.black
+                                                    : Colors.white)
+                                                : (darktheme
+                                                    ? Colors.white
+                                                    : Colors.black),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 2,
+                                    ),
+                                    Text(
+                                      tripDirectionDetailsInfo != null
+                                          ? "UGX\n${((AssistantMethods.calculateFareAmountFromOriginToDestination(tripDirectionDetailsInfo!) * 0.25) * 107).toStringAsFixed(1)}"
+                                          : "null",
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          //wheellift
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedVehicleType = "Wheellift";
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: selectedVehicleType == "Wheellift"
+                                    ? (darktheme
+                                        ? Colors.amber.shade400
+                                        : Colors.greenAccent)
+                                    : (darktheme
+                                        ? Colors.black54
+                                        : Colors.grey[100]),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              //for vehicle images
+                              child: Padding(
+                                padding: EdgeInsets.all(22.0),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/car_android.png",
+                                      scale: 2,
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      "Wheellift",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            selectedVehicleType == "Wheellift"
+                                                ? (darktheme
+                                                    ? Colors.black
+                                                    : Colors.white)
+                                                : (darktheme
+                                                    ? Colors.white
+                                                    : Colors.black),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 2,
+                                    ),
+                                    Text(
+                                      tripDirectionDetailsInfo != null
+                                          ? "UGX\n${((AssistantMethods.calculateFareAmountFromOriginToDestination(tripDirectionDetailsInfo!) * 0.125) * 107).toStringAsFixed(1)}"
+                                          : "null",
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      //
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            if (selectedVehicleType != "") {
+                              saveRideRequestInformation(selectedVehicleType);
+                            } else {
+                              Fluttertoast.showToast(
+                                  msg:
+                                      "Please Select a Vehicle from \n Suggested Rides");
+                            }
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(11),
+                            decoration: BoxDecoration(
+                              color: darktheme
+                                  ? Colors.amber.shade400
+                                  : Colors.greenAccent,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Order Service",
+                                style: TextStyle(
+                                  color:
+                                      darktheme ? Colors.black : Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
 
             //see whether position changes
             //testing
