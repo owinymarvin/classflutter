@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:towdrivers/global/global.dart';
+import 'package:towdrivers/pushNotification/push_notification_system.dart';
 
 import '../Assistant/assistant_methods.dart';
 
@@ -86,6 +87,8 @@ class _HomeTabPageState extends State<HomeTabPage> {
             (snap.snapshot.value as Map)["car_details"]["car_number"];
         onlineDriverData.car_color =
             (snap.snapshot.value as Map)["car_details"]["car_color"];
+        onlineDriverData.car_type =
+            (snap.snapshot.value as Map)["car_details"]["car_type"];
 
         driverVehicleType = (snap.snapshot.value as Map)["car_details"]["type"];
       }
@@ -94,10 +97,12 @@ class _HomeTabPageState extends State<HomeTabPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     checkIfLocationPermissionAllowed();
     readCurrentDriverInformation();
+    PushNotificationSystem pushNotificationSystem = PushNotificationSystem();
+    pushNotificationSystem.initializeCloudMessaging(context);
+    pushNotificationSystem.generateAndGetToken();
   }
 
   @override

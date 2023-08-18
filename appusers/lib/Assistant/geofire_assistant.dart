@@ -1,6 +1,6 @@
 import 'package:appusers/model/active_nearby_available_drivers.dart';
 
-class GeofireAssistant {
+class GeoFireAssistant {
   static List<ActiveNearByAvailableDrivers> ActiveNearByAvailableDriversList =
       [];
   static void deleteOfflineDriverFromList(String driverId) {
