@@ -1123,7 +1123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: Column(
                                   children: [
                                     Image.asset(
-                                      "assets/images/car_android.png",
+                                      "assets/images/flatbed_small.png",
                                       scale: 2,
                                     ),
                                     SizedBox(
@@ -1183,7 +1183,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: Column(
                                   children: [
                                     Image.asset(
-                                      "assets/images/car_android.png",
+                                      "assets/images/hook_and_chain_small.png",
                                       scale: 2,
                                     ),
                                     SizedBox(
@@ -1243,7 +1243,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: Column(
                                   children: [
                                     Image.asset(
-                                      "assets/images/car_android.png",
+                                      "assets/images/wheel_lift_small.png",
                                       scale: 2,
                                     ),
                                     SizedBox(
