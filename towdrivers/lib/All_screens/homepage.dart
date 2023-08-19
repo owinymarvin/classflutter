@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 // import 'package:towdrivers/global/global.dart';
 // import 'package:towdrivers/welcome_screen/welcome.dart';
 
+import '../tabPages/earning_tab.dart';
 import '../tabPages/home_Tab.dart';
+import '../tabPages/profile_tab.dart';
+import '../tabPages/rating_tab.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -44,9 +47,9 @@ class _MyHomePageState extends State<MyHomePage>
         controller: tabController,
         children: [
           HomeTabPage(),
-          // EarningsTabPage(),
-          // RatingsTabPage(),
-          // ProfileTabPage(),
+          EarningsTabPage(),
+          RatingTabPage(),
+          ProfileTabPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

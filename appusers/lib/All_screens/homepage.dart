@@ -2,13 +2,11 @@ import 'dart:async';
 // import 'dart:js_interop';
 import 'package:appusers/All_screens/Search_Places.dart';
 import 'package:appusers/All_screens/precise_pickupLocation.dart';
-import 'package:appusers/All_screens/Assistant/assistant_methods.dart';
-import 'package:appusers/All_screens/Assistant/geofire_assistant.dart';
 import 'package:appusers/global/global.dart';
 // import 'package:appusers/global/map_key.dart';
 import 'package:appusers/info_handler/app_info.dart';
 import 'package:appusers/model/active_nearby_available_drivers.dart';
-import 'package:appusers/welcome_screen/welcome.dart';
+// import 'package:appusers/welcome_screen/welcome.dart';
 import 'package:appusers/widgets/progressdialog.dart';
 import 'package:firebase_database/firebase_database.dart';
 // import 'package:firebase_storage/firebase_storage.dart';
@@ -24,6 +22,8 @@ import 'package:provider/provider.dart';
 
 // import '../model/directions.dart';
 import '../widgets/pay_fare_amount_dialogue.dart';
+import 'Assistant/assistant_methods.dart';
+import 'Assistant/geofire_assistant.dart';
 import 'drawer_screen.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -52,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   double waitingResponsefromDriverContainerHeight = 0;
   double assignedDriverInfoContainerHeight = 0;
   //suggested ride
+
   double suggestedRidesContainerHeight = 0;
   double searchingForDriverContainerHeight = 0;
 
@@ -203,7 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
   createActiveNearByDriverIconMarker() {
     if (activeNearbyIcon == null) {
       ImageConfiguration imageConfiguration =
-          createLocalImageConfiguration(context, size: Size(32, 32));
+          createLocalImageConfiguration(context, size: Size(2, 2));
       BitmapDescriptor.fromAssetImage(
               imageConfiguration, 'assets/images/pickicon.png')
           .then((value) {
@@ -215,7 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ///////////////////////////
 
   //drawing polylines on map
-  Future<void> drwaPolylineFromOriginToDestination(bool darktheme) async {
+  Future<void> drawPolylineFromOriginToDestination(bool darktheme) async {
     //for our pickup location
     var originPosition =
         Provider.of<AppInfo>(context, listen: false).userPickUpLocation;
@@ -348,7 +349,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 //show search for driver container
-  void showSearchingForDriversContainers() {
+  void showSearchingForDriversContainer() {
     setState(() {
       searchingForDriverContainerHeight = 200;
     });
@@ -444,14 +445,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
       if ((eventSnap.snapshot.value as Map)["driverPhone"] != null) {
         setState(() {
-          driverCarDetails =
+          driverPhone =
               (eventSnap.snapshot.value as Map)["driverPhone"].toString();
         });
       }
 
       if ((eventSnap.snapshot.value as Map)["driverName"] != null) {
         setState(() {
-          driverCarDetails =
+          driverName =
               (eventSnap.snapshot.value as Map)["driverName"].toString();
         });
       }
@@ -535,13 +536,16 @@ class _MyHomePageState extends State<MyHomePage> {
         pLineCoordinatedList.clear();
       });
 
-      Fluttertoast.showToast(msg: "No Online Nearest Driver Available");
-      Fluttertoast.showToast(msg: "Search Again\n Restarting App");
+      // Fluttertoast.showToast(msg: "No Online Nearest Driver Available");
+      // Fluttertoast.showToast(msg: "Search Again\n Restarting App");
 
-      Future.delayed(Duration(milliseconds: 4000), () {
+      Future.delayed(Duration(milliseconds: 30000), () {
         referenceRideRequest!.remove();
         Navigator.push(
-            context, MaterialPageRoute(builder: (c) => WelcomeScreen()));
+            context, MaterialPageRoute(builder: (c) => MyHomePage()));
+        // Navigator.pop(context);
+        Fluttertoast.showToast(msg: "No Online Nearest Driver Available");
+        // Fluttertoast.showToast(msg: "Search Again\n Restarting App");
       });
 
       return;
@@ -557,7 +561,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     Fluttertoast.showToast(msg: "Notification sent Succesfully");
 
-    showSearchingForDriversContainers();
+    showSearchingForDriversContainer();
 
     await FirebaseDatabase.instance
         .ref()
@@ -587,6 +591,7 @@ class _MyHomePageState extends State<MyHomePage> {
         userPickUpPosition,
       );
 
+      // ignore: unnecessary_null_comparison
       if (directionDetailsInfo == null) {
         return;
       }
@@ -615,6 +620,7 @@ class _MyHomePageState extends State<MyHomePage> {
         userDestinationPosition,
       );
 
+      // ignore: unnecessary_null_comparison
       if (directionDetailsInfo == null) {
         return;
       }
@@ -729,8 +735,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Container(
                 child: GestureDetector(
                   onTap: () {
-                    //                   if (_scaffoldState.currentState != null) {
-                    //   _scaffoldState.currentState!.openDrawer();
+                    // if (_scaffoldState.currentState != null) {
+                    // _scaffoldState.currentState?.openDrawer();
                     // }
                     _scaffoldState.currentState!.openDrawer();
                   },
@@ -866,7 +872,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       }
 
                                       //polyline drawing
-                                      await drwaPolylineFromOriginToDestination(
+                                      await drawPolylineFromOriginToDestination(
                                           darktheme);
                                     },
                                     child: Row(
@@ -912,11 +918,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   fontSize: 14),
                                             ),
                                           ],
-                                        )
+                                        ),
                                       ],
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -1291,6 +1297,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           onTap: () {
                             if (selectedVehicleType != "") {
                               saveRideRequestInformation(selectedVehicleType);
+                              searchingForDriverContainerHeight = 200;
                             } else {
                               Fluttertoast.showToast(
                                   msg:
@@ -1316,6 +1323,96 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                               ),
                             ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            //tow service request
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: searchingForDriverContainerHeight,
+                decoration: BoxDecoration(
+                  color: darktheme ? Colors.black : Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      LinearProgressIndicator(
+                        color: darktheme
+                            ? Colors.amber.shade400
+                            : Colors.greenAccent,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Center(
+                        child: Text(
+                          "Searching for a driver...",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      //sizedbox
+                      SizedBox(
+                        height: 20,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          referenceRideRequest!.remove();
+                          setState(() {
+                            searchingForDriverContainerHeight = 0;
+                            suggestedRidesContainerHeight = 0;
+                          });
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: darktheme ? Colors.black : Colors.white,
+                            borderRadius: BorderRadius.circular(25),
+                            border: Border.all(
+                              width: 1,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.close,
+                            size: 25,
+                          ),
+                        ),
+                      ),
+
+                      //sized box
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        child: Text(
+                          "Cancel",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.orangeAccent,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),

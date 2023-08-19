@@ -1,9 +1,9 @@
-import 'package:appusers/All_screens/Assistant/request_Assistant.dart';
 import 'package:appusers/widgets/place_prediction_tile.dart';
 import 'package:flutter/material.dart';
 
 import '../global/map_key.dart';
 import '../model/prediction_places.dart';
+import 'Assistant/request_Assistant.dart';
 
 class SearchPlacesScreen extends StatefulWidget {
   const SearchPlacesScreen({Key? key}) : super(key: key);
@@ -68,7 +68,7 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
             ),
           ),
           title: Text(
-            "Set dropoff gaurage location",
+            "Set dropoff location",
             style: TextStyle(color: darktheme ? Colors.black : Colors.white),
           ),
           elevation: 0.0,

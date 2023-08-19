@@ -1,3 +1,4 @@
+import 'package:appusers/All_screens/drawer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
 import 'package:uuid/uuid.dart';
@@ -42,10 +43,15 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     currencyController.text = selectedCurrency;
 
+    //theme color
+    bool darktheme =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
+        backgroundColor: Colors.greenAccent,
       ),
       body: Container(
         width: double.infinity,
@@ -145,8 +151,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
               */
 
-              
-
               /* is test mode disabled
 
               Container(
@@ -174,6 +178,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 50,
                 margin: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary:
+                        darktheme ? Colors.amber.shade400 : Colors.greenAccent,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32),
+                    ),
+                    minimumSize: Size(double.infinity, 50),
+                  ),
                   onPressed: _onPressed,
                   child: const Text(
                     "Make Payment",
@@ -197,7 +210,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _handlePaymentInitialization() async {
     final Customer customer = Customer(email: emailController.text);
-    
+
     final Flutterwave flutterwave = Flutterwave(
       context: context,
 

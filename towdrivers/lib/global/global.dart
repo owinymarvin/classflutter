@@ -17,3 +17,4 @@ UserModel? userModelCurrentinfo;
 Position? driverCurrentPosition;
 DriverData onlineDriverData = DriverData();
 String? driverVehicleType = "";
+String titleStarRating = "";
