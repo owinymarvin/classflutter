@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:appusers/Assistant/request_Assistant.dart';
+import 'package:appusers/All_screens/Assistant/request_Assistant.dart';
 import 'package:appusers/global/global.dart';
 import 'package:appusers/model/directions.dart';
 import 'package:appusers/model/user_model.dart';
@@ -9,9 +9,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../global/map_key.dart';
-import '../info_handler/app_info.dart';
-import '../model/direction_details_info.dart';
+import '../../global/map_key.dart';
+import '../../info_handler/app_info.dart';
+import '../../model/direction_details_info.dart';
 import 'package:http/http.dart' as http;
 
 class AssistantMethods {

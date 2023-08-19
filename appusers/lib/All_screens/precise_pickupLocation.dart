@@ -7,7 +7,7 @@ import 'package:location/location.dart' as loc;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../Assistant/assistant_methods.dart';
+import 'Assistant/assistant_methods.dart';
 import '../global/map_key.dart';
 import '../info_handler/app_info.dart';
 import '../model/directions.dart';

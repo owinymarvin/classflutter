@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:appusers/All_screens/homepage.dart';
 import 'package:appusers/All_screens/login.dart';
-import 'package:appusers/Assistant/assistant_methods.dart';
+import 'package:appusers/All_screens/Assistant/assistant_methods.dart';
 import 'package:appusers/global/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

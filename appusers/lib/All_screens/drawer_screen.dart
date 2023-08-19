@@ -3,6 +3,7 @@ import 'package:appusers/All_screens/profile_screen.dart';
 import 'package:appusers/global/global.dart';
 import 'package:appusers/welcome_screen/welcome.dart';
 import 'package:flutter/material.dart';
+import 'package:appusers/All_screens/payments_screen.dart';
 
 class DrawerScreen extends StatelessWidget {
   const DrawerScreen({Key? key}) : super(key: key);
@@ -56,7 +57,7 @@ class DrawerScreen extends StatelessWidget {
                       "Edit Profile",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 15,
+                          fontSize: 16,
                           color: Colors.greenAccent),
                     ),
                   ),
@@ -78,13 +79,25 @@ class DrawerScreen extends StatelessWidget {
                     height: 15,
                   ),
 
-                  Text(
-                    "Payment",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (c) => FlutterWavePayments(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "Payments",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        // color: Colors.greenAccent,
+                      ),
                     ),
                   ),
+
 
                   //sized box
                   SizedBox(
