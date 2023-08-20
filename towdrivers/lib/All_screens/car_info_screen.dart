@@ -21,7 +21,7 @@ class _TowCarInfoScreenState extends State<TowCarInfoScreen> {
   final towCarNumberTextEditingContoller = TextEditingController();
   final towCarColorTextEditingContoller = TextEditingController();
 //CAR type
-  List<String> towCarTypes = ["Flatbed", "Hookandchain", "Wheellift"];
+  List<String> towCarTypes = ["Flatbed", "Hook&chain", "Wheellift"];
   String? selectedTowCarType;
   final _formkey = GlobalKey<FormState>();
 

@@ -34,7 +34,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
   LocationPermission? _locationPermission;
 
   String statusText = "Now Offline";
-  Color buttonColor = Colors.grey;
+  Color buttonColor = Colors.orangeAccent;
   bool isDriverActive = false;
 //permissions
   checkIfLocationPermissionAllowed() async {
@@ -150,14 +150,14 @@ class _HomeTabPageState extends State<HomeTabPage> {
                     setState(() {
                       statusText = "Now Online";
                       isDriverActive = true;
-                      buttonColor = Colors.transparent;
+                      buttonColor = Colors.greenAccent;
                     });
                   } else {
                     driverIsOfflineNow();
                     setState(() {
                       statusText = "Now Offline";
                       isDriverActive = false;
-                      buttonColor = Colors.grey;
+                      buttonColor = Colors.orangeAccent;
                     });
                     Fluttertoast.showToast(msg: "You are offline now");
                   }
