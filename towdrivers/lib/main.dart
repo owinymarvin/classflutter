@@ -6,8 +6,6 @@ import 'package:towdrivers/welcome_screen/welcome.dart';
 
 import 'info_handler/app_info.dart';
 
-// import 'All_screens/homepage.dart';
-
 Future<void> main() async {
   runApp(const MyApp());
   WidgetsFlutterBinding.ensureInitialized();
