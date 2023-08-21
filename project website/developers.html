@@ -1,0 +1,339 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Developers: Car Towing Service</title>
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" media="screen" rel="stylesheet"
+    type="text/css" />
+  <link href="css/frame.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="css/controls.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="css/custom.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/footer.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+  <style>
+    .menu-developers {
+      color: rgb(255, 255, 255) !important;
+      opacity: 1 !important;
+      font-weight: 700 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="menu-container"></div>
+  <div class="content-container">
+    <!-------------------------------------------------------------------------------------------->
+    <!--Start Header-->
+    <div class="banner" style="
+          background: url('img/images/tow1.svg') no-repeat center;
+          background-size: 30%;
+          height: 300px;
+        "></div>
+    <div class="banner">
+      <div class="banner-table flex-column">
+        <div class="flex-row">
+          <div class="flex-item flex-column">
+            <h1 class="add-top-margin-small text-light">
+              Application Developers
+            </h1>
+            <p class="text">
+              The car towing service app was created to enable stranded
+              drivers tow their vehicles to the nearest or a preferred car
+              garage. Users can request for a tow car, view the location of
+              the tow car and pay for tow services all through the app.
+              <br /><br />
+              <a class="text-light mt-3" href="#dev-team">Contact the development team</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--End Header-->
+    <!-------------------------------------------------------------------------------------------->
+
+    <div class="content">
+      <div class="content-table flex-column">
+        <p class="center">
+          The above team was responsible for the design and implementation of
+          the project. This was done in partial fulfillment of a bachelor of
+          science degree in computer science.
+        </p>
+
+       
+
+        <!-- Table of contents with ID link.(same document ID) -->
+        <div class="flex-row mt-5">
+          <div class="flex-item flex-column">
+            <h3>Table of Contents</h3>
+            <ol>
+              <li><a href="#installing-flutter">Installing Flutter</a></li>
+              <li><a href="#application-dependencies">Application Dependencies</a></li>
+              <li><a href="#platform-support">Platform Support</a></li>
+              <li><a href="#reporting-bugs">Reporting bugs</a></li>
+              <li><a href="#making-contributions">Making Contributions</a></li>
+            </ol>
+          </div>
+        </div>
+        <!-- end of Table of contents with ID link.(same document ID) -->
+
+        <!-- Installing flutter starts here -->
+        <div class="flex-row mt-5">
+          <div class="flex-item flex-column">
+            <h2 id="installing-flutter">Installing Flutter</h2>
+            <hr />
+            <p class="text">
+              For developers, youll need to download and install the
+              <i><a target="_blank" href="https://docs.flutter.dev/get-started/install">flutter SDK</a></i>
+              and add it to your path.
+            </p>
+            <p class="text">
+              Other
+              <a href="#application-dependencies">Application Dependencies</a>
+              required to run the application are can be obtained from
+              <a href="#application-dependencies">here</a>
+            </p>
+          </div>
+        </div>
+        <!-- Installing flutter ends here -->
+
+        <!-- App dependencies start here -->
+        <div class="flex-row mt-5">
+          <div class="flex-item flex-column">
+            <h2 id="application-dependencies">App Dependencies</h2>
+            <hr />
+            <p class="text">
+              The following app dependencies are required by the car towing
+              Application to run effectively
+            </p>
+          </div>
+
+          <div class="container-fluid">
+            <div class="row justify-content-center">
+              <div class="col-lg-12">
+                <div class="table-responsive">
+                  <table class="table bg-success">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Dependency</th>
+                        <th scope="col">Function in the project</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>firebase_auth: ^4.7.2</td>
+                        <td>firebase authentication</td>
+                      </tr>
+                      <tr>
+                        <td>firebase_core: ^2.15.0</td>
+                        <td>firebase authentication</td>
+                      </tr>
+                      <tr>
+                        <td>firebase_database: ^10.2.4</td>
+                        <td>firebase data storage</td>
+                      </tr>
+                      <tr>
+                        <td>firebase_messaging: ^14.6.5</td>
+                        <td>firebase data</td>
+                      </tr>
+                      <tr>
+                        <td>fluttertoast: ^8.2.2</td>
+                        <td>returning messages on the app</td>
+                      </tr>
+                      <tr>
+                        <td>flutter_svg: ^2.0.7</td>
+                        <td>working with svg images</td>
+                      </tr>
+                      <tr>
+                        <td>geolocator: ^9.0.2</td>
+                        <td>works with google maps</td>
+                      </tr>
+                      <tr>
+                        <td>geocoder2: ^1.4.0</td>
+                        <td>works with google maps</td>
+                      </tr>
+                      <tr>
+                        <td>flutter_geofire: ^2.0.3</td>
+                        <td>works with google maps</td>
+                      </tr>
+                      <tr>
+                        <td>flutter_polyline_points: ^1.0.0</td>
+                        <td>works with google maps</td>
+                      </tr>
+                      <tr>
+                        <td>location: ^5.0.2+1</td>
+                        <td>works with google maps</td>
+                      </tr>
+                      <tr>
+                        <td>provider: ^6.0.5</td>
+                        <td>works with google maps</td>
+                      </tr>
+                      <tr>
+                        <td>intl_phone_field: ^3.2.0</td>
+                        <td>works with google maps</td>
+                      </tr>
+                      <tr>
+                        <td>email_validator: '^2.1.16'</td>
+                        <td>firebase authentication</td>
+                      </tr>
+                      <tr>
+                        <td>firebase_storage: ^11.2.5</td>
+                        <td>used to store data</td>
+                      </tr>
+                      <tr>
+                        <td>google_maps_flutter: ^2.4.0</td>
+                        <td>works with google maps</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- App dependencies start here -->
+
+      <!-- platform support starts here -->
+      <div class="flex-row mt-3">
+        <div class="flex-item flex-column">
+          <h2 id="platform-support">Platform Suport</h2>
+          <hr />
+          <p class="text">
+            The car towing service was developed using flutter. Since flutter
+            utilises one code base to build an application on various
+            platforms, the "car towing application" can be utilised on
+            android, ios, web, macos, windows and linux platforms.
+          </p>
+          <p class="text">
+            More information about flutter and its one code base can be
+            obtained from
+            <a target="_blank" href="https://flutter.dev/">here</a>
+          </p>
+        </div>
+      </div>
+      <!-- end of platform support starts here -->
+
+      <!-- Reporting bugs starts here -->
+      <div class="flex-row mt-5">
+        <div class="flex-item flex-column">
+          <h2 id="reporting-bugs">Reporting Bugs</h2>
+          <hr />
+          <p class="text">
+            Bugs refer to unwanted behaviour in the way the application
+            operates. some bugs might become known after the application has
+            been rolled out.
+          </p>
+          <p class="text">
+            we have provided a link to
+            <a target="_blank" href="https://github.com/owinymarvin/classflutter/issues">report bugs here.</a>
+          </p>
+          <p class="text">
+            Alternatively you can send us an email at
+            <strong>classflutter@gmail.com</strong>
+          </p>
+        </div>
+      </div>
+      <!-- end of reporting bugs -->
+
+      <!-- making-contributions starts here -->
+      <div class="flex-row mt-5">
+        <div class="flex-item flex-column">
+          <h2 id="making-contributions">Making Contributions</h2>
+          <hr />
+          <p class="text">
+            To make any contributions to the application, write to us an email
+            <strong>classflutter@gmail.com</strong>
+          </p>
+
+          <p class="text">
+            Alternatively you can utilise our github pages. your changes will be reviewed then approved.
+            <br><a target="_blank" href="https://github.com/owinymarvin/classflutter">Github Pages</a>
+          </p>
+        </div>
+      </div>
+      <!-- end of making-contributions -->
+
+
+      <!-- dev team -->
+      
+			<div class="my-5">
+				<h2 id="dev-team">Development Team</h2>
+				<hr>
+				<p class=" center">
+					The team below was responsible for the design and implementation of the project. This was done in
+					partial
+					fulfillment of a bachelor of science degree in computer science.
+				</p>
+
+				<div class="row">
+
+					<!-- owiny marvin user profile  -->
+					<div class="col-md-4">
+						<img class="image" src="img/images/marvin.jpg" style="height: 300px;">
+						<p class="text text-large">
+							<a target="_blank" href="javascript:void(0)">Owiny Marvin</a><br>
+							<a target="_blank" href="javascript:void(0)">College of Computing and Information
+								Sciences</a><br>
+							<a target="_blank" href="javascript:void(0)">Makerere University</a><br>
+							<a target="_blank" href="javascript:void(0)">Kampala, Uganda</a>
+						</p>
+					</div>
+
+					<!-- Natukunda phionah user profile  -->
+					<div class="col-md-4">
+						<div class="mt-3" style="height: 300px; overflow: hidden;">
+							<img class="image" src="img/images/phionah2.jpeg" style="transform: translateY(-150px);"/>
+						</div>
+						<p class="text text-large">
+							<a target="_blank" href="javascript:void(0)">Natukunda Phionah</a><br>
+							<a target="_blank" href="javascript:void(0)">College of Computing and Information
+								Sciences</a><br>
+							<a target="_blank" href="javascript:void(0)">Makerere University</a><br>
+							<a target="_blank" href="javascript:void(0)">Kampala, Uganda</a>
+						</p>
+					</div>
+
+					<!-- Magino dan user profile  -->
+					<div class="col-md-4">
+						<img class="image" src="img/images/magino.jpeg" style="height: 300px;">
+						<p class="text text-large">
+							<a target="_blank" href="javascript:void(0)">Magino Daniel</a><br>
+							<a target="_blank" href="javascript:void(0)">College of Computing and Information
+								Sciences</a><br>
+							<a target="_blank" href="javascript:void(0)">Makerere University</a><br>
+							<a target="_blank" href="javascript:void(0)">Kampala, Uganda</a>
+						</p>
+					</div>
+
+				</div>
+
+				<!-- end of our user profiles are here.  -->
+			</div>
+
+      <!-- end of our user profiles are here.  -->
+
+      <div class="footer">
+        <p class="m-5">
+
+        </p>
+      </div>
+
+
+    </div>
+
+  </div>
+</body>
+
+</html>

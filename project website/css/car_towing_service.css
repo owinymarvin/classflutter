@@ -1,0 +1,42 @@
+body {
+    /* background-image: url('../img/images/slop.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center; */
+    /* background-color: grey; */
+}
+
+@media (min-width: 768px) {
+    .banner-height {
+        max-height: 240px;
+    }
+    .banner-height img {
+        max-width: 250px !important;
+        padding: 0.5%;
+    }
+   
+}
+.table-content-image img {
+    max-width: 100%; /* Make sure the image fits within its container */
+    height: auto; /* Maintain the aspect ratio */
+    margin: auto auto;
+    opacity: 0.9;
+}
+.table-content-image {
+    max-height: 250px;
+    width: 200px;
+    margin: auto auto;
+}
+.list-group-item{
+    margin-top: 1rem;
+}
+.table-length {
+    max-height: 840px;
+    overflow: hidden;
+}
+.banner{
+    margin-top: -240px;
+    opacity: 0.86;
+    /* margin-bottom: 25rem; */
+    /* transform: translateY(-200px ); */
+}
