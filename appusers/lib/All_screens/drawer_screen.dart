@@ -37,7 +37,9 @@ class DrawerScreen extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    userModelCurrentinfo!.name!,
+                    userModelCurrentinfo != null
+                        ? userModelCurrentinfo!.name!
+                        : "Default Name",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -97,7 +99,6 @@ class DrawerScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-
 
                   //sized box
                   SizedBox(

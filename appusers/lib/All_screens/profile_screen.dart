@@ -231,7 +231,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "${userModelCurrentinfo!.name!}",
+                      userModelCurrentinfo != null
+                          ? "${userModelCurrentinfo!.name!}"
+                          : "Default Username",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -260,7 +262,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "${userModelCurrentinfo!.phone!}",
+                      userModelCurrentinfo != null
+                          ? "${userModelCurrentinfo!.phone!}"
+                          : "Default Phone Number",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -289,7 +293,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "${userModelCurrentinfo!.address!}",
+                      userModelCurrentinfo != null
+                          ? "${userModelCurrentinfo!.address!}"
+                          : "Default Current Info",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -316,7 +322,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "${userModelCurrentinfo!.email!}",
+                      userModelCurrentinfo != null
+                          ? "${userModelCurrentinfo!.email!}"
+                          : "Default Email",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
