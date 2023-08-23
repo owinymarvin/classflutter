@@ -45,7 +45,7 @@ class PushNotificationSystem {
         .child("All Tow ride request")
         .child(userRideRequestId)
         .child("driverId")
-        .onValue            
+        .onValue
         .listen((event) {
       if (event.snapshot.value == "waiting" ||
           event.snapshot.value == firebaseAuth.currentUser!.uid) {

@@ -1,13 +1,14 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:towdrivers/Assistant/assistant_methods.dart';
+import 'package:flutter_svg/svg.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:towdrivers/Assistant/assistant_methods.dart';
 import 'package:towdrivers/global/global.dart';
 import 'package:towdrivers/model/user_ride_request_information.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import '../All_screens/new_trip_screen.dart';
-import 'package:towdrivers/tabPages/home_tab.dart';
+// import 'package:towdrivers/tabPages/home_tab.dart';
 
 class NotificationDialogueBox extends StatefulWidget {
   NotificationDialogueBox({super.key, this.userRideRequestDetails});
@@ -48,183 +49,192 @@ class _NotificationDialogueBoxState extends State<NotificationDialogueBox> {
             borderRadius: BorderRadius.circular(10),
             color: darkthem ? Colors.black : Colors.white,
           ),
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Image.asset(
-              "assets/images/tow2.png",
-              height: 200,
-            ),
-            SizedBox(height: 2),
-            Text(
-              "New Ride Request",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 22,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 80,
+              ),
+              SvgPicture.asset(
+                darkthem ? 'assets/images/tow1.svg' : 'assets/images/tow1.svg',
+                semanticsLabel: 'Car towing image',
+                width: 200,
+                color: Colors.greenAccent,
+              ),
+              SizedBox(height: 2),
+              Text(
+                "New Tow Service Request",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                  color: darkthem ? Colors.amber.shade400 : Colors.black54,
+                ),
+              ),
+              SizedBox(height: 2),
+              Divider(
+                height: 2,
+                thickness: 2,
                 color: darkthem ? Colors.amber.shade400 : Colors.greenAccent,
               ),
-            ),
-            SizedBox(height: 2),
-            Divider(
-              height: 2,
-              thickness: 2,
-              color: darkthem ? Colors.amber.shade400 : Colors.greenAccent,
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Image.asset(
-                        "assets/images/tow2.png",
-                        width: 30,
-                        height: 30,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Container(
-                          child: Text(
-                            'originAddress: ' + AllTowRequests['originAddress'],
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: darkthem
-                                  ? Colors.amber.shade400
-                                  : Colors.greenAccent,
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Image.asset(
+                          "assets/images/pickicon.png",
+                          width: 30,
+                          height: 30,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: Text(
+                              'originAddress: ' +
+                                  AllTowRequests['originAddress'],
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: darkthem
+                                    ? Colors.amber.shade400
+                                    : Colors.greenAccent,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Image.asset(
-                        "assets/images/desticon1.png",
-                        width: 30,
-                        height: 30,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Container(
-                          child: Text(
-                            'destinationAddress: ' +
-                                AllTowRequests['destinationAddress'],
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: darkthem
-                                  ? Colors.amber.shade400
-                                  : Colors.greenAccent,
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Image.asset(
+                          "assets/images/desticon1.png",
+                          width: 30,
+                          height: 30,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: Text(
+                              'destinationAddress: ' +
+                                  AllTowRequests['destinationAddress'],
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: darkthem
+                                    ? Colors.amber.shade400
+                                    : Colors.greenAccent,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Icon(Icons.person),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Container(
-                          child: Text(
-                            'userName: ' + AllTowRequests["userName"],
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: darkthem
-                                  ? Colors.amber.shade400
-                                  : Colors.greenAccent,
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Icon(Icons.person),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: Text(
+                              'userName: ' + AllTowRequests["userName"],
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: darkthem
+                                    ? Colors.amber.shade400
+                                    : Colors.greenAccent,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Icon(Icons.phone),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Container(
-                          child: Text(
-                            'userPhone: ' + AllTowRequests['userPhone'],
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: darkthem
-                                  ? Colors.amber.shade400
-                                  : Colors.greenAccent,
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Icon(Icons.phone),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: Text(
+                              'userPhone: ' + AllTowRequests['userPhone'],
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: darkthem
+                                    ? Colors.amber.shade400
+                                    : Colors.greenAccent,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  )
-                ],
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
 
-            Divider(
-              height: 2,
-              thickness: 2,
-              color: darkthem ? Colors.amber.shade400 : Colors.greenAccent,
-            ),
-
-            //buttons for acceptin and canceling
-
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      audioPlayer.pause();
-                      audioPlayer.stop();
-                      audioPlayer = AssetsAudioPlayer();
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.red,
-                    ),
-                    child: Text(
-                      "Cancel".toUpperCase(),
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      audioPlayer.pause();
-                      audioPlayer.stop();
-                      audioPlayer = AssetsAudioPlayer();
-
-                      acceptRideRequest(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.green,
-                    ),
-                    child: Text(
-                      "Accept".toUpperCase(),
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-                ],
+              Divider(
+                height: 2,
+                thickness: 2,
+                color: darkthem ? Colors.amber.shade400 : Colors.greenAccent,
               ),
-            ),
-          ]),
+
+              //buttons for acceptin and canceling
+
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        audioPlayer.pause();
+                        audioPlayer.stop();
+                        audioPlayer = AssetsAudioPlayer();
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.red,
+                      ),
+                      child: Text(
+                        "Cancel".toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        audioPlayer.pause();
+                        audioPlayer.stop();
+                        audioPlayer = AssetsAudioPlayer();
+
+                        acceptRideRequest(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                      ),
+                      child: Text(
+                        "Accept".toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       );
     } else {
@@ -244,9 +254,14 @@ class _NotificationDialogueBoxState extends State<NotificationDialogueBox> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(
-                "assets/images/tow2.png",
-                height: 200,
+              SizedBox(
+                height: 80,
+              ),
+              SvgPicture.asset(
+                darkthem ? 'assets/images/tow1.svg' : 'assets/images/tow1.svg',
+                semanticsLabel: 'Car towing image',
+                width: 200,
+                color: Colors.greenAccent,
               ),
               SizedBox(height: 2),
               Text(
@@ -254,7 +269,7 @@ class _NotificationDialogueBoxState extends State<NotificationDialogueBox> {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 22,
-                  color: darkthem ? Colors.amber.shade400 : Colors.greenAccent,
+                  color: darkthem ? Colors.amber.shade400 : Colors.grey,
                 ),
               ),
               SizedBox(height: 20),
