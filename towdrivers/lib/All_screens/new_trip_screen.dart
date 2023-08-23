@@ -10,6 +10,13 @@ class NewTripScreen extends StatefulWidget {
 class _NewTripScreenState extends State<NewTripScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('gdhfjkgh'),
+        ),
+        body: Text('data'),
+      ),
+    );
   }
 }

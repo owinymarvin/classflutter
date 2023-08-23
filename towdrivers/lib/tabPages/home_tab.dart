@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:towdrivers/global/global.dart';
+import 'package:towdrivers/pushNotification/notification_dialogue_box.dart';
 import 'package:towdrivers/pushNotification/push_notification_system.dart';
 
 import '../Assistant/assistant_methods.dart';
@@ -151,6 +152,11 @@ class _HomeTabPageState extends State<HomeTabPage> {
                       statusText = "Now Online";
                       isDriverActive = true;
                       buttonColor = Colors.greenAccent;
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (c) => NotificationDialogueBox()));
                     });
                   } else {
                     driverIsOfflineNow();

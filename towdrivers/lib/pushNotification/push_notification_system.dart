@@ -7,7 +7,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:towdrivers/global/global.dart';
 import 'package:towdrivers/model/user_ride_request_information.dart';
-
 import 'notification_dialogue_box.dart';
 
 class PushNotificationSystem {
@@ -43,10 +42,10 @@ class PushNotificationSystem {
       String userRideRequestId, BuildContext context) {
     FirebaseDatabase.instance
         .ref()
-        .child("All Ride Requests")
+        .child("All Tow ride request")
         .child(userRideRequestId)
         .child("driverId")
-        .onValue
+        .onValue            
         .listen((event) {
       if (event.snapshot.value == "waiting" ||
           event.snapshot.value == firebaseAuth.currentUser!.uid) {
