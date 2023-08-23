@@ -26,6 +26,8 @@ import 'Assistant/assistant_methods.dart';
 import 'Assistant/geofire_assistant.dart';
 import 'drawer_screen.dart';
 
+import 'package:appusers/All_screens/found_tow_driver.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
   @override
@@ -539,12 +541,14 @@ class _MyHomePageState extends State<MyHomePage> {
       // Fluttertoast.showToast(msg: "No Online Nearest Driver Available");
       // Fluttertoast.showToast(msg: "Search Again\n Restarting App");
 
-      Future.delayed(Duration(milliseconds: 30000), () {
-        referenceRideRequest!.remove();
+      Future.delayed(Duration(milliseconds: 20000), () {
+        // referenceRideRequest!.remove();
         Navigator.push(
-            context, MaterialPageRoute(builder: (c) => MyHomePage()));
+            context, MaterialPageRoute(builder: (c) => FoundTowDriver()));
+        // Navigator.push(
+        //     context, MaterialPageRoute(builder: (c) => MyHomePage()));
         // Navigator.pop(context);
-        Fluttertoast.showToast(msg: "No Online Nearest Driver Available");
+        Fluttertoast.showToast(msg: "Your Driver is on he's way");
         // Fluttertoast.showToast(msg: "Search Again\n Restarting App");
       });
 
