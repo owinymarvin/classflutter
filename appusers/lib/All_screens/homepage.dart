@@ -542,13 +542,17 @@ class _MyHomePageState extends State<MyHomePage> {
       // Fluttertoast.showToast(msg: "Search Again\n Restarting App");
 
       Future.delayed(Duration(milliseconds: 20000), () {
-        // referenceRideRequest!.remove();
-        Navigator.push(
-            context, MaterialPageRoute(builder: (c) => FoundTowDriver()));
+        referenceRideRequest!.remove();
+        if (cancelSearching == false) {
+          Fluttertoast.showToast(msg: "Your Driver is on he's way");
+
+          Navigator.push(
+              context, MaterialPageRoute(builder: (c) => FoundTowDriver()));
+        }
+
         // Navigator.push(
         //     context, MaterialPageRoute(builder: (c) => MyHomePage()));
         // Navigator.pop(context);
-        Fluttertoast.showToast(msg: "Your Driver is on he's way");
         // Fluttertoast.showToast(msg: "Search Again\n Restarting App");
       });
 
@@ -664,6 +668,8 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
   }
+
+  bool cancelSearching = false;
 
   @override
   void initState() {
@@ -1384,6 +1390,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           setState(() {
                             searchingForDriverContainerHeight = 0;
                             suggestedRidesContainerHeight = 0;
+                            cancelSearching = true;
                           });
                         },
                         child: Container(

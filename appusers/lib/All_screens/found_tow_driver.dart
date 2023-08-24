@@ -65,11 +65,7 @@ class _FoundTowDriverState extends State<FoundTowDriver> {
                 children: [
                   Row(
                     children: [
-                      Image.asset(
-                        "assets/images/tow2.png",
-                        width: 30,
-                        height: 30,
-                      ),
+                      Icon(Icons.person),
                       SizedBox(
                         width: 10,
                       ),
@@ -77,6 +73,50 @@ class _FoundTowDriverState extends State<FoundTowDriver> {
                         child: Container(
                           child: Text(
                             'Name: ' + FoundTowDriver['name'],
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: darkthem
+                                  ? Colors.amber.shade400
+                                  : Colors.greenAccent,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Icon(Icons.phone_android),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Container(
+                          child: Text(
+                            'Phone: ' + FoundTowDriver['phone'],
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: darkthem
+                                  ? Colors.amber.shade400
+                                  : Colors.greenAccent,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Icon(Icons.email),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Container(
+                          child: Text(
+                            'email: ' + FoundTowDriver["email"],
                             style: TextStyle(
                               fontSize: 16,
                               color: darkthem
@@ -102,50 +142,6 @@ class _FoundTowDriverState extends State<FoundTowDriver> {
                       Expanded(
                         child: Container(
                           child: Text(
-                            'Phone: ' + FoundTowDriver['phone'],
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: darkthem
-                                  ? Colors.amber.shade400
-                                  : Colors.greenAccent,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Icon(Icons.person),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Container(
-                          child: Text(
-                            'email: ' + FoundTowDriver["email"],
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: darkthem
-                                  ? Colors.amber.shade400
-                                  : Colors.greenAccent,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Icon(Icons.person),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Container(
-                          child: Text(
                             'Address: ' + FoundTowDriver["address"],
                             style: TextStyle(
                               fontSize: 16,
@@ -161,7 +157,11 @@ class _FoundTowDriverState extends State<FoundTowDriver> {
                   SizedBox(height: 20),
                   Row(
                     children: [
-                      Icon(Icons.person),
+                      Image.asset(
+                        "assets/images/tow2.png",
+                        width: 30,
+                        height: 30,
+                      ),
                       SizedBox(
                         width: 10,
                       ),

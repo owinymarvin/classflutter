@@ -68,18 +68,6 @@ class DrawerScreen extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
-                  Text(
-                    "Your Orders",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-
-                  //sized box
-                  SizedBox(
-                    height: 15,
-                  ),
 
                   GestureDetector(
                     onTap: () {
